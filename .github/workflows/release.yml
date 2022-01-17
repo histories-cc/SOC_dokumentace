@@ -24,7 +24,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v0.1-${{ github.run_number }}
-          release_name: Automated build v0.1-${{ github.run_number }}
+          release_name: Automated release v0.1.${{ github.run_number }}-alpha
           draft: false
           prerelease: false
       - name: Upload Release Asset

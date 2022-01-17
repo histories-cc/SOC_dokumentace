@@ -1,7 +1,5 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% Autor: Jakub Dokulil (kubadokulil99@gmail.com)
-% Tato šablona byla vytvořena tak, aby pomocí ní mohli v systému LaTeX soutěžící sázet své práce a zároveň odpovídala požadavkům na formátování vyplývajícím z wordové šablony umístěné na webu soc.cz.
-%
+% Autor šablony: Jakub Dokulil (kubadokulil99@gmail.com) https://github.com/Kubiczek36/SOC_sablona
+
 \documentclass[12pt, a4paper,
   %oneside,      %% -- odkomentujte, pokud chcete svou práci mít pouze jednostrannou, mezera pro hřbet pak automaticky bude pouze na levé straně
  twoside,        %% -- pro oboustranné práce, mezera pro hřbet následně střídá strany.
@@ -19,7 +17,7 @@
 \newcommand\name{Krátký Kryštof}
 \newcommand\publicationYear{2022}
 
-\title{hiStories} %% -- Název tvé práce
+\title{Histories} %% -- Název tvé práce
 \author{\name} %% -- tvé jméno
 \date{\publicationYear} %% -- rok, kdy píšeš SOČku
 
@@ -84,108 +82,10 @@
 \pagestyle{empty}
 \pagenumbering{Roman}
 
-\begin{titlepage}
-    \bfseries{ %%% písmo na stránce je tučně
-        \begin{center}
-            \LARGE{STŘEDOŠKOLSKÁ ODBORNÁ ČINNOST} 
-            \vspace{14pt}
-            \large{\specialization} 
+\input{chapters/00-zacatek.tex}
+\input{chapters/01-uvod.tex}
 
-            \vspace{0.4 \textheight}
 
-            \LARGE{ %%%%
-                hiStories
-            }%%%%
-
-            \vspace{0.4\textheight}
-        \end{center}
-        
-        \noindent\Large{\name}
-
-        \noindent\Large{\district\hspace{\stretch{1}}  \city, \publicationYear} %% vyplň oficiální název kraje, město a rok
-        
-            
-    } %%%
-\end{titlepage}
-
-\cleardoublepage%% Úvodní stránka s informacemi
-{\bfseries %%% písmo na stránce je tučně
-    \begin{center}
-        \LARGE{STŘEDOŠKOLSKÁ ODBORNÁ ČINNOST}
-
-        \vspace{14pt}
-        {\large \specialization}
-
-        \vspace{0.3 \textheight}
-
-        \LARGE{ %%%%
-        hiStories
-        }
-
-        \LARGE{ %%%%
-        platforma pro sdílení historických fotek
-        }%%%%
-
-        \vspace{0.24\textheight}
-    \end{center}  
-}%%%
-{\Large %%%
-    \noindent\textbf{Jméno:} \name\\
-    \textbf{Škola:} \school\\
-    \textbf{Kraj:} \district\\
-    \textbf{Konzultant:} \consultant\\
-} %%%
-
-\noindent \city, \publicationYear\cleardoublepage\noindent{\Large{\bfseries{Prohlášení}}}  %% uprav si koncovky podle toho na jaký rod se cítíš, vypadá to pak lépe :) 
-
-\noindent Prohlašuji, že jsem svou práci SOČ vypracoval/a samostatně a použil/a jsem pouze prameny a literaturu uvedené v seznamu bibliografických záznamů.
-
-\noindent Prohlašuji, že tištěná verze a elektronická verze soutěžní práce SOČ jsou shodné. 
-
-\noindent Nemám závažný důvod proti zpřístupňování této práce v souladu se zákonem č. 121/2000 Sb., o právu autorském, o právech souvisejících s právem autorským a o změně některých zákonů (autorský zákon) ve znění pozdějších předpisů. 
-
-\vspace{24 pt}
-
-\noindent V Pardubicích dne 9.\ září 2022 \dotfill{}\hspace{\stretch{0.5}} 
-
-\hspace{8cm} \name\cleardoublepage\vspace*{0.8\textheight}
-\noindent{\Large{\bfseries{Poděkování}}}
-
-\noindent
-Chtěl bych poděkovat mému školiteli, prof. Farnsworthovi, za jeho úžasné tipy, triky a připomínky, bez kterých by nevznikla tato práce. Dále bych chtěl poděkovat mé rodině a přítelkyni, za to, že mě dostatečně zásobili kávou.
-
-\cleardoublepage\noindent{\Large{\bfseries{Abstrakt}}}
-
-\noindent Sem napíšeš svůj abstrakt. \lipsum[1] %% přepiš!!
-
-\vspace{18pt}
-
-\noindent{\Large{\bfseries{Klíčová slova}}}
-
-\noindent Šablona, \LaTeX, SOČ, \dots 
-
-\vspace{18pt}
-
-\noindent{\Large{\bfseries{Abstract}}}
-
-\noindent Write your abstract here! \lipsum[1] %% přepiš!!
-
-\vspace{18pt}
-
-\noindent{\Large{\bfseries{Keywords}}}
-
-\noindent Template, \LaTeX, High school proffessional activity, \dots 
-
-\cleardoublepage\tableofcontents
-
-\pagenumbering{arabic}
-\pagestyle{fancy}
-\setcounter{page}{1}
-
-\chapter*{Úvod}
-
-\chapter{%Příloha A 
-Spot diagramy a další }
-
+ 
 
 \end{document}
