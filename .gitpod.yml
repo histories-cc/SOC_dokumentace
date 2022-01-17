@@ -1,0 +1,15 @@
+# Commands to start on workspace startup
+tasks:
+  - name: Setup
+    init: >
+      sudo apt-get update -y;
+      sudo apt-get upgrade -y;
+      sudo apt-get install texlive-full -y;
+    command: echo "Setup done"
+
+vscode:
+  extensions:
+    - eamodio.gitlens
+    - james-yu.latex-workshop
+    - bierner.markdown-preview-github-styles
+    - pkief.material-icon-theme
