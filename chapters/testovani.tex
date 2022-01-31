@@ -8,22 +8,26 @@ jednoduché zálohování kódu na platformy jako je
 například Gitlab, nebo Github.
 
 \section{Testování}
-\subsection{Při vývoji}
-\subsubsection{Jest}
+\subsection{Při vývoji} 
+\subsubsection{Testování funkcí}
 Jest je nástroj pro testování jednotlivých funkcí v kódu během vývoje.
 Testování probíhá tak, že se zavolá funkce s definovanými parametry,
 a testuje se, zda se výsledek shoduje s očekávaným výsledkem.
-\subsection{Na produkci}
-\subsubsection{Testování produkční verze}
-\paragraph{Frontend}
+\subsubsection{Vizuální testy}
+Tyto testy lze provádět například pomocí knihovny Storybook, která dokáže 
+zobrazit vizuální změny oproti předchozí verzi kódu, ale umožňuje také například
+simulaci určitých poruch znaku, nebo upozornění na nízký kontrast komponent.
+\subsection{Na produkci} 
+\subsubsection{Vizuální testy}
 Tyto testy provádí automaticky ovládaný prohlížeč, u kterého je 
 definované na jaké místo na obrazovce se má klikat a jaké stránky má navštívit.
 Pro testování tohoto typu jsou nejčastěji používány knihovny Selenium a Puppeteer.
 Služba která umožňuje toto testování je například Checkly, které i ukládá snímky obrazovky.
-\paragraph{API}
+\subsubsection{API}
 API je testováno pomocí speciálního requestu, na který je známa odpověď. Získaná
 odpověď se potom musí shodovat s očekávanou. Dále lze testovat například, jak dlouho
-trvalo čekání na odpověď.
+trvalo čekání na odpověď. Pro testování tohoto typu lze použít
+například nástroj Postman.
 \subsubsection{Nahlašování vzniklých chyb}
 Pokud se při běžném používání aplikace vyskytne error, je nahlášen a 
 vývojář se může podívat, v jaké situaci se vyskytl. Tuto funkci má například
@@ -57,5 +61,10 @@ spustí se pokus o zkompilování projektu. Toto je prováděno pro každou verz
 je projekt kompatibilní (v tomto případě verze 14 a 16). Pokud všechny zmíněné kroky proběhly úspěšně,
 je vytvořen nový Docker image s unikátním tagem, pokud se při vytváření nevyskytne chyba, je publikován 
 na platformě Dockerhub.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/github-actions-diagram.png}
+    \caption{Propojení jednotlivých akcí v Github actions}
 
+\end{figure}
 Sem přijde schéma Github actions
