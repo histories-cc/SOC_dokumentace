@@ -25,7 +25,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v0.1-${{ github.run_number }}
+          tag_name: [latest, v0.1-${{ github.run_number }}]
           release_name: Automated release v0.1.${{ github.run_number }}-alpha
           draft: false
           prerelease: false
