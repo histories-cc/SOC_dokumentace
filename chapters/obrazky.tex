@@ -1,9 +1,9 @@
-\chapter{Zpracování obrázků}
+\chapter{Obrázky}
 \section{Zpracování při nahrání}
-Po obdržení souboru se zkontroluje, jestli se jedná o formát obrázku (např.: .jpg, .png, atd.), pokud je soubor jiného formátu (např.: .zip, .exe, atd.) žádná z následujících akcí nebude provedena a kód je ukončen s errorem. Nejdříve je obrázek zmenšen tak aby jeho nejdelší strana měla maximálně 2560px (poměr stran zůstává zachován) a je převeden do formátu JPG. Následně se fotky asynchronně nahrají na IPFS a u každé je zkontrolováno pomocí externího API, jestli neobsahuje NSFW obsah. Zároveň se pro každou fotku vygeneruje blurhash.
-
-\section{Poskytování obrázků}
-Pro zobrazování obrázků je použita komponenta, kterou Next.js obsahuje v základu. Ta umožňuje dynamickou optimalizaci na serveru. V praxi to funguje tak že pokud klient má menší obrazovku a obrázek se vykresluje pouze ve velikosti 300 na 200px tak se neposílá klientovi obrázek v plné velikosti ale zmenšení na konkrétní velikost kterou potřebuje. Všechny fotky jsou caschovány lokálně u klienta a  na Cloudflare pomocí služby [Images.weserv.nl](http://Images.weserv.nl) která umožňuje caschováni zadarmo bez používání API klíče. Před načtením obrázku je na jeho místě vykreslená jeho rozmazaná verze za pomoci blurhashe, protože u blurhashe není potřeba fetchovat žádná dodatečná data.
-
-\section{AVIF}
-AVIF je open source formát obrázků. Lze u něj zvolit jestli bude použit při ztrátové, nebo bezztrátové konverzi a oproti formátu JPEG je výstup až o 50\% menší.
+\subsection{Kontrola formátu a optimalizace}
+\subsection{Filtrování nevhodného obsahu}
+\section{Optimalizace}
+\subsection{Použití komponentu Next image}
+\section{Formáty}
+\subsection{Porovnání AVIF a WEBp}
+\section{Blurhash}

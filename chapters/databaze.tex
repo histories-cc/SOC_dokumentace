@@ -1,8 +1,9 @@
 \chapter{Databáze}
 \section{Grafové databáze}
-\subsection{Co je grafová databáze}
-V grafových databázích je použit princip relačního grafování, to znamená, že data jsou znázorněna vrcholy a hranami. Hranou se znázorňueje vztah mezi dvěma (je možno i jedním) vrcholy. Jak vrchol, tak hrana mohou mít vlastnosti, do kterých lze ukládat data.
-\subsection{Výhody}
-Výhody tento typ databáze přináší v případě, kdy jsou data vzájemně propojená. V paměti je totiž relace uložená jako pointer, na rozdíl od SQL, kde je nutné filtrovat celou tabulku. To umožňuje například vyhledávání propojeních mezi uživateli v reálném čase což by s SQL databází bylo téměř nemožné. Zároveň databáze podporuje ACID a constraints.
-\subsection{Dotazovací jazyk}
-Dotazovací jazyk je počítačový jazyk, který umožňuje získávání, analýzu a manipulaci s daty v databázi. Neo4j používá jako dotazovací jazyk CQL (Cypher Qeuery Language). Syntaxí je velmi podobný jazyku SQL, který je využíván relačními databázemi. Velmi populární je knihovna APOC, která přidává mnoho užitečných funkcí.
+V projektu byla použita databáze Neo4j. Hlavním rozdílem grafových databází oproti relačním databázím je způsob ukládání dat. 
+Data v grafové databázi jsou rozdělena na uzly a hrany. Uzly představují entity a hrany vztahy znázorňují vztahy mezi entitami
+Uzly i hrany mohou mít své vlastnosti. Grafová databáze byla zvolena, protože aplikace generuje mnoho na sobě závislých dat, která
+lze následně použít pro algoritmus pro doporučování příspěvků a ostatních uživatelů v reálném čase. Grafové jsou často využity pro
+analýzu a zpracování dat.
+\section{Porovnání Cypher a SQL}
+\subsection{Doporučování příspěvků uživateli}
