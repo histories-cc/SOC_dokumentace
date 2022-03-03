@@ -6,12 +6,12 @@
 ## Setup
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/hiStories-cc/SOC_dokumentace)
 ### Arch 
-`sudo pacman -S texlive-most`
+`sudo pacman -Sy texlive-most`
 ### Ubuntu
 ```bash
-sudo apt update -y
+sudo apt update
 sudo apt upgrade -y
-install texlive-full -y
+sudo apt install texlive-full -y # Downloads about 3 GB and requires approximately 6GB of free space to install.
 ```
 
 Using LaTeX template from https://github.com/Kubiczek36/SOC_sablona
