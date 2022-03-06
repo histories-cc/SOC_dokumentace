@@ -84,15 +84,48 @@
 
 \input{chapters/00-zacatek.tex}
 \input{chapters/01-uvod.tex}
-\input{chapters/databaze.tex}
-\input{chapters/IPFS.tex}
-\input{chapters/obrazky.tex} 
+% \input{chapters/IPFS.tex}
+% \input{chapters/obrazky.tex} 
+
+\section{Použité technologie}
+\subsection{Frontend}
+\subsection{React}
+React je frontendová knihovna zjednodušující práci s měnícími se daty.
+\subsection{Next.js}
+Next.js je React framework. Výhodou Next.js je Server side rendering, vestavěný Router a komponenta Link, která umožňuje prefetchování odkazů. Next.js zlepšuje uživatelskou zkušenost s webem.
+\subsection{Tailwind}
+Tailwind je CSS framework, který umožňuje rychlejší a přehlednější stylování stránek pomocí předvytvořených class.
+\subsection{GraphQL code generator}
+GraphQL code generator je knihovna, která umožňuje vygenerování Typescript typů z GraphQL schématu. Díky tomu není nutné vytvářet nové typy pro GraphQL response.
+\subsection{Backend}
+\subsection{Nodejs}
+Node js je runtime prostředí pro spouštění Javascriptu mimo prohlížeč. Hlavním důvodem pro použití bylo to že umožňuje psát backend i frontend v Javascriptu a tudíž využívat některé funkce (např. validaci v obojím).
+\subsection{GraphQL}
+GraphQL je specifikace dotazovacího jazyka pro tvorbu API.(wikipedia) Nejpoužívanější alternativou pro GraphQL je REST. Oproti REST je u GraphQL výhodou že klient v requestu specifikuje data která chce aby byla vrácena ze serveru. Tímto je eliminován přenos nepotřebných dat a tím také celý přenos urychlen. Zároveň se klient dotazuje vždy na stejný endpoint, mění se jen obsah requestu. GraphQL je typované, což znamená že musí být předem jasné typ vrácených dat.
+\subsection{Typescript}
+Typescript je nadstavba na Jaavascript, která umožňuje statické typování. Všechen kód napsaný v Javascriptu je validním také v Typescriptu. 
+
 
 \section{Zobrazení mapy}
 \subsection{Dotazy na server}
 \subsection{Seskupování bodů}
 
-\input{chapters/testovani.tex}
+\section{Úložiště dat}
+\subsection{Úložiště souborů}
+\subsection{Databáze}
+\subsubsection{Grafové databáze}
+V projektu byla použita databáze Neo4j. Hlavním rozdílem grafových databází oproti relačním databázím je způsob ukládání dat. 
+Data v grafové databázi jsou rozdělena na uzly a hrany. Uzly představují entity a hrany vztahy znázorňují vztahy mezi entitami
+Uzly i hrany mohou mít své vlastnosti. Grafová databáze byla zvolena, protože aplikace generuje mnoho na sobě závislých dat, která
+lze následně použít pro algoritmus pro doporučování příspěvků a ostatních uživatelů v reálném čase. Grafové jsou často využity pro
+analýzu a zpracování dat.
+\subsubsection{Neo4j}
+\subsubsection{Dotazovací jazyk Cypher Query Language}
+Cypher je výchozí dotazovací jazyk pro Neo4j. Syntaxí se podobá jazyku SQL což je výhodné pro lidi, kteří znají jen SQL
+\subsection{Porovnání Cypher a SQL}
+\subsection{Doporučování příspěvků uživateli}.
+
+% \input{chapters/testovani.tex}
 
 
 %% Citace
