@@ -82,50 +82,159 @@
 \pagestyle{empty}
 \pagenumbering{Roman}
 
-\input{chapters/00-zacatek.tex}
-\input{chapters/01-uvod.tex}
-% \input{chapters/IPFS.tex}
-% \input{chapters/obrazky.tex} 
+\input{chapters/00-zacatek}
 
-\section{Použité technologie}
-\subsection{Frontend}
+\chapter{Pojmy}
+\subsection{NSFW}
+Zkratka vycházející z anglického "Not Safe For Work" (nevhodné pro práci), zpravidla se takto označují příspěvky obsahující nahotu, násilí a tudíž by se jim mělo vyhnout v profesionálním prostředí.
+
+
+\chapter{Úvod}
+\section{Cíl}
+Cílem projektu bylo vytvořit platformu pro sdílení historických fotografií
+s informací o místě a čase pořízení. Jednou z hlavních funkcí aplikace je možnost
+zobrazení fotografií na mapě včetně možnosti filtrování podle časové osy. Prohlížet 
+příspěvky mají možnost všichni včetně neregistrovaných uživatelů. Registrovaní 
+uživatelé dále mohou přidávat nové příspěvky a diskutovat s ostatními uživateli v
+komentářové sekci. Zároveň existují administrátorské funkce, které umožňují mazat
+nevhodný obsah a přidávat detaily míst (např. název místa, fotku, ikonu na mapě, atd.).
+
+\section{Motivace}
+Motivací projektu byla Facebooková skupina Pardubice v běhu času\cite{PardubiceVBehuCasuFB}, kde lidé 
+sdílí historické fotky. Na rozdíl od Histories zde není téměř žádná možnost filtrování či 
+řazení ani zobrazení příspěvků na mapě.
+
+
+
+
+\section{Existující řešení}
+\subsection{Historypin}
+Historypin je open-source platforma fungující jako archiv historických fotografií.Umožňuje vyhledávání míst na mapě, filtrování příspěvků podle data vzniku, nebo například vytváření kolekcí. Obashuje velké množství příspěvků, což ale vede k pomalému načítání stránky a dat na mapě. Zvolený layout snižuje přehlednost a zhoršuje orientaci a navigaci na stránce.
+\subsection{Facebook}
+Primární účel Facebooku je sdílení aktuálních příspěvků. Neobsahuje téměř žádné možnosti filtrování či geolokaci příspěvků. 
+\
+\chapter{Použité technologie}
+\subsection{Typescript}
+Typescript je nadstavba na Javascript, která umožňuje statické typování. Všechen kód napsaný v Javascriptu je validním také v Typescriptu. 
+\subsection{NPM}
+NPM je nástroj pro správu Javascript knihoven. Umožňuje jednoduchou instalaci knihoven použitých v projektu. V konfiguračním souboru lze nastavit nutnost použití konkrétní verze knihovny, což zajišťuje stejnou funkčnost napříč různými zařízeními. 
+% FRONTEND %%%%%%% 
+\section{Technologie pro frontend}
 \subsection{React}
-React je frontendová knihovna zjednodušující práci s měnícími se daty.
+React je Javascriptová knihovna pro tvorbu webových stránek zjednodušující práci s měnícími se daty. Kód je dělen na jednotlivé celky nazývané komponenty. Komponenty mohou být v kódu používány vícekrát, což vede k zjednodušení kódu.
 \subsection{Next.js}
-Next.js je React framework. Výhodou Next.js je Server side rendering, vestavěný Router a komponenta Link, která umožňuje prefetchování odkazů. Next.js zlepšuje uživatelskou zkušenost s webem.
+Next.js je React framework zaměřený na zlepšení uživatelské i vývojářské zkušenosti. Hlavní výhodou Next.js je server side rendering, což znamená že se data načtou již na serveru a klientovi se posílá načtená stránka, na rozdíl od klasického Reactu, kde se klientovi pošle prázdná stránka a až poté se u klienta načítají data. Server side rendering zároveň zlepšuje skóre SEO. Next.js disponuje vlastními React komponenty, například Link, který zajišťuje prefetchování odkazů nebo Image, který optimalizuje způsob načítání obrázků. Next.js obsahuje také file system rounting, což znamená že není nutné nastavovat React router.
 \subsection{Tailwind}
-Tailwind je CSS framework, který umožňuje rychlejší a přehlednější stylování stránek pomocí předvytvořených class.
+Tailwind je open-source CSS framework, který umožňuje rychlejší a přehlednější psaní stylů stránek pomocí předvytvořených tříd. Tailwind neobsahuje žádné předvytvořené prvky.
 \subsection{GraphQL code generator}
-GraphQL code generator je knihovna, která umožňuje vygenerování Typescript typů z GraphQL schématu. Díky tomu není nutné vytvářet nové typy pro GraphQL response.
-\subsection{Backend}
+GraphQL code generator je knihovna, která umožňuje generování Typescript typů z GraphQL schémata. Díky tomu není nutné vytvářet zvlášť nové typy pro GraphQL response.
+% BACKEND %%%%%%% 
+\section{tachnologie pro backend}
 \subsection{Nodejs}
-Node js je runtime prostředí pro spouštění Javascriptu mimo prohlížeč. Hlavním důvodem pro použití bylo to že umožňuje psát backend i frontend v Javascriptu a tudíž využívat některé funkce (např. validaci v obojím).
+Node js je runtime prostředí pro spouštění Javascriptu mimo prohlížeč. Hlavním důvodem pro použití bylo použití stejného programovacího jazyka pro backend i frontend, což umožňuje znovuvyužití některých funkcí (např. validace).
 \subsection{GraphQL}
 GraphQL je specifikace dotazovacího jazyka pro tvorbu API.(wikipedia) Nejpoužívanější alternativou pro GraphQL je REST. Oproti REST je u GraphQL výhodou že klient v requestu specifikuje data která chce aby byla vrácena ze serveru. Tímto je eliminován přenos nepotřebných dat a tím také celý přenos urychlen. Zároveň se klient dotazuje vždy na stejný endpoint, mění se jen obsah requestu. GraphQL je typované, což znamená že musí být předem jasné typ vrácených dat.
-\subsection{Typescript}
-Typescript je nadstavba na Jaavascript, která umožňuje statické typování. Všechen kód napsaný v Javascriptu je validním také v Typescriptu. 
 
+\chapter{Úložiště dat}
+    \section{Úložiště souborů}
+ \subsection{Protokol}
+\subsection{Porovnání s S3}
+
+    \section{Databáze}
+    \subsection{Definice grafové databáze}
+        Hlavním rozdílem grafových databází oproti relačním databázím je způsob ukládání dat. 
+        Data v grafové databázi jsou rozdělena na uzly a hrany. Uzly představují entity a hrany vztahy znázorňují vztahy mezi entitami. Hrana vždy spojuje dva uzly.
+        Uzly i hrany mohou mít své vlastnosti. Grafová databáze byla zvolena, protože aplikace generuje mnoho na sobě závislých dat, která
+        lze následně využít u algoritmů pro doporučování příspěvků a ostatních uživatelů v reálném čase. Grafové databáze jsou často využity pro analýzu a zpracování dat.
+    \subsection{Neo4j}
+        V projektu je použita databáze Neo4j. Databáze byla zvolena zejména kvůli její aktivní komunitě a detailní dokumentaci. Neo4j je používána také některými světovými organizacemi např. NASA, Airbnb, Lyft a Ebay. Neo4j splňuje zásady ACID, což znamená že změny jsou uloženy všechny najednou po dokončení transakce, v případě chyby nejsou žádné změněny uloženy. Tím je garantovaná stálost dat v databázi.
+    \subsection{Constraints}
+        Constraints je sada omezení při práci s daty. Lze omezovat na základě vlastností vrcholu (např. nelze vytvořit vrchol \uv{user} bez vlastnosti \uv{username}), na základě hran (např. nemůže existovat vrchol \uv{post} bez hrany \uv{created} spojující ho s uživatelem, nemůže existovat hrana sleduje mezi vrcholy \uv{user} a \uv{post}), na základě datových typů (např. vlastnost \uv{email} vrcholu \uv{user} musí být vždy typu string)
+    \subsection{Dotazovací jazyk Cypher Query Language}
+        Cypher je výchozí dotazovací jazyk pro Neo4j. Syntaxí je podobý jazyku SQL.
+    \subsection{Porovnání Neo4j a PostgreSQL}
+    \subsection{Práce s daty}
+        Podle konvencí Neo4j jsou všechny vrcholy pojmenovány s velkým písmenem na začátku a hrany se všemi písmeny velkými, pokud se jedná o víceslovný název, jednotlivá slova jsou oddělena podtržítkem.
+        \subsubsection{Datová struktura}
+            \paragraph{Vrcholy}
+                \begin{itemize}
+    	            \item \textbf{User} (uživatel) - Obsahuje uživatelská data jako jsou např. křestní jméno, příjmení, email, datum a čas vytvoření, hash hesla. Uživatel má společnou hranu \uv{CREATED} s každou entitou, kterou vytvořil (např. \uv{Comment}, \uv{Post}, \uv{Collection}).
+    	            \item \textbf{Post} (příspěvek) - Obsahuje datum vytvoření, popisek, jestli se nejedná o nevhodný obsah a historický datum ve formátu popsaném v sekci \ref{section:historica_date}. Vrchol \uv{Photo} může mít společnou hranu \uv{BELONGS\_TO} s vrcholem \uv{Post}, kterým je fotografie nahraná k příspěvku. Příspěvek má společnou hranu \uv{IS\_LOCATED} s vrcholem \uv{Place}, tímto se zajistí přiřazovaní příspěvků k místům.
+    	            \item \textbf{Photo} (fotografie) - Každá použitá fotografie je uložena jako vrchol. Obsahuje vlastnosti blurhash (\ref{TBD}), hash (IPFS content id \ref{}), výšku a šířku (pro správné vykreslování blurhashe na frontendu), index (v případě že je k jednomu příspěvku přiřazeno více fotografií, řadí se podle této vlastnosti).
+    	            \item \textbf{Place} (místo) - Znázorňuje jedno místo na mapě. Obsahuje vlastnosti location (je použit datový typ point, pro jednodušší zpracování), název a popisek. Může mít hranu \uv{HAS\_PREVIEW} s vrcholem \uv{Photo}, vrchol \uv{Photo} je potom náhled místa, zobrazující se na mapě, nebo v jeho detailu.
+    	            \item \textbf{Comment} (komentář) - Má společnou hranu \uv{BELONGS\_TO} s vrcholem \uv{Post}. Obsahuje vlastnost \uv{content} (text komentáře). Může mít společnou hranu \uv{LIKE} s vrcholem \uv{User}, pokud ho nějaký uživatel označí jako oblíbený.
+    	            \item \textbf{Collection} (kolekce) - Má společnou hranu \uv{CONTAINS} s vrcholy \uv{Post}. Obsahuje vlastnosti název a popis.
+            	\end{itemize}
+            \paragraph{Hrany}
+                \begin{itemize}
+    	            \item \textbf{FOLLOW} (sleduje) - Může být pouze mezi vrcholy \uv{User}.
+    	            \item \textbf{LIKE} (líbí se) - Může být pouze mezi vrcholem \uv{User} a \uv{Post}.
+    	            \item \textbf{REPORT} (nahlášení) - Může být pouze mezi vrcholem \uv{User} a \uv{Post}.
+                \end{itemize}
+        \subsubsection{Doporučování uživatelů}
+
+\chapter{Praktická část}
+
+
+\chapter{Obrázky}
+\section{Zpracování při nahrání}
+\subsection{Kontrola formátu a optimalizace}
+\subsection{Filtrování nevhodného obsahu}
+\section{Optimalizace}
+\subsection{Použití komponentu Next image}
+\section{Formáty}
+\subsection{Porovnání AVIF a WEBp}
+\section{Blurhash}
+
+
+\section{Filtrování nevhodného obsahu}\label{section:nsfw_filter}
+Pro kontrolu NSFW obsahu autor použil API třetí strany (nsfw iamge classification1 Rapid API). Toto API bylo zvoleno z důvodu vysoké kvality vytrénovaného modelu a tudíž velké úspěšnosti rozpoznání nevhodného obsahu a malé míry falešně pozitivních výsledků (false positive). Příspěvky obsahující fotografii klasifikovanou jako NSFW jsou vytvořeny, ale jejich viditelnost je nastavena na skrytou, dokud některý z adminů tento příspěvek buď zamítne (poté je smazán), nebo potvrdí (je nastaven jako viditelný, s vlastností NSFW). Pokud se tento příspěvek poté má zobrazit uživateli, nejdřív je zobrazena rozmazaná verze s varováním, po jehož přijmutí lze zobrazit fotografii.
+
+\section{Historický datum příspěvku}\label{section:historica_date}
+Každý příspěvek má datum kdy byl vytvořen a historické datum. Historické datum je datum kdy byla fotografie u příspěvku pořízena (z pravidla starší data). U takto starých dat je nutné počítat s tím že se může jedna pouze o odhad, proto není možné použít datum ve formátu podle standartu (ISO 8601) jak je zvykem. V autorem navržené struktuře se počítá s tím, že je znám alespoň rok, jako dodatečné informace lze přidat i měsíc, případně den. Zároveň se ale může jednat o určité časové období (například červen až červenec roku 1984), proto jsou vlastnosti rozděleny na počáteční a konečné datum. V případě že se o období nejedná, jsou počáteční a konečné datum stejné. V praxi jde o šest vlastnosí, které má každý příspěvek: startDay, startMonth, startYear, endDay, endMonth, endYear.
 
 \section{Zobrazení mapy}
-\subsection{Dotazy na server}
-\subsection{Seskupování bodů}
+    Pro zobrazení mapy je použit balíček react-map-gl, který umožňuje zobrazování např. bodů, polygonů a 3D terénu. Pro zobrazení konkrétních stylů mapy je použit tiling service. Mapa je rozdělena do mřížky ve které jedno pole je jeden tzv. tile, pro tile je poté ze serveru poslán obrázek na kterém je konkrétní část mapy (existují i varianty které používají místo obrázků vektorovou grafiku, což zvyšuje rychlost načítání, a eliminuje efekt rozmatanosti), výhodou je že se ze serveru posílá několik tilů zároveň a ty se poté cachují u klienta. Díky tomu není nutné stahovat data pro jednu část mapy vícekrát. V projektu byl jako tiling service použit Mapbox, jedná se o placené řešení s možností použití předvytvořených stylů mapy, nebo vytvoření zcela vlastního. Alternativou je např. Leaflet, který je poháněn open-source projektem open street maps, který ale obsahuje pouze několik stylů bez možnosti vlastní úpravy.
+    \subsection{Geolokace klienta}
+    \subsection{Ukládání poslední polohy na mapě}
+    \subsection{Dotazy na server}
+    \subsection{Seskupování bodů}
+    Místa na mapě jsou zobrazena jako ikony s fotografií místa. Pokud by bylo mnoho bodů na malém prostoru, mohly by se nevzájem překrývat, snižovat přehlednost a zpomalovat pohyb po mapě. Proto je použit tzv. clustering (shlukování více bodů), místo těchto bodů je pak vykreslen pouze jeden, který se nachází na souřadnicích rovnajících se průměru souřadnic všech bodů, které cluster obsahuje. Pro rozhodnutí, který obrázek bude na mapě použit jako ikona jsou porovnány vzdálenosti všech bodů v clusteru od středu clusteru, a jako náhled je použit náhled místa, které je nejblíže středu clusteru. V pravém vrchním rohu ikony je poté číslo vyjadřující počet míst seskupených v clusteru.
 
-\section{Úložiště dat}
-\subsection{Úložiště souborů}
-\subsection{Databáze}
-\subsubsection{Grafové databáze}
-V projektu byla použita databáze Neo4j. Hlavním rozdílem grafových databází oproti relačním databázím je způsob ukládání dat. 
-Data v grafové databázi jsou rozdělena na uzly a hrany. Uzly představují entity a hrany vztahy znázorňují vztahy mezi entitami
-Uzly i hrany mohou mít své vlastnosti. Grafová databáze byla zvolena, protože aplikace generuje mnoho na sobě závislých dat, která
-lze následně použít pro algoritmus pro doporučování příspěvků a ostatních uživatelů v reálném čase. Grafové jsou často využity pro
-analýzu a zpracování dat.
-\subsubsection{Neo4j}
-\subsubsection{Dotazovací jazyk Cypher Query Language}
-Cypher je výchozí dotazovací jazyk pro Neo4j. Syntaxí se podobá jazyku SQL což je výhodné pro lidi, kteří znají jen SQL
-\subsection{Porovnání Cypher a SQL}
-\subsection{Doporučování příspěvků uživateli}.
 
-% \input{chapters/testovani.tex}
+\chapter{Docker}
+Docker je platforma která umožňuje vytvořit virtuální prostředí pro 
+běh aplikace, které je odděleno od hostitelského prostředí.
+Výhodou jsou předem dané podmínky pro běh aplikace, které zůstávají
+bez ohledu na počítač na kterém toto prostředí beží. 
+\subsection{Docker image}
+Docker image je soubor, který je použit pro spuštění kontejneru, který
+může obsahovat například aplikaci. Výhodou je spuštění aplikace,
+nebo celého vývojového prostředí (databáze, úložiště soubory, atd.) pomcí
+jednoho příkazu.
+
+\chapter{Kontrola kvality kódu}
+\section{Verzování}
+GIT
+\section{Testování}
+\subsection{Při vývoji}  
+
+\subsection{Na produkci} 
+\subsubsection{Vizuální testy}
+\subsubsection{API}
+\subsubsection{Nahlašování vzniklých chyb}
+
+
+ 
+\section{Formátotvání kódu}  
+\subsection{Prettier}
+\subsection{Eslint}
+
+
+\section{CI/CD}
+\subsection{Aktualizace knihoven}
+\subsection{Kontrola zranitelností}
+\subsection{Github actions} 
 
 
 %% Citace
