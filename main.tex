@@ -87,7 +87,7 @@
 \chapter{Pojmy}
 \subsection{NSFW}
 Zkratka vycházející z anglického "Not Safe For Work" (nevhodné pro práci), zpravidla se takto označují příspěvky obsahující nahotu, násilí a tudíž by se jim mělo vyhnout v profesionálním prostředí.
-
+\subsection{Garbage collection} je správa paměti, Stará se o uvolnění nepoužívaných úseků v paměti které nejsou procesem využívány
 
 \chapter{Úvod}
 \section{Cíl}
@@ -114,10 +114,15 @@ Historypin je open-source platforma fungující jako archiv historických fotogr
 Primární účel Facebooku je sdílení aktuálních příspěvků. Neobsahuje téměř žádné možnosti filtrování či geolokaci příspěvků. 
 \
 \chapter{Použité technologie}
+\section{Sdílené technologie pro frontend i backend}
 \subsection{Typescript}
 Typescript je nadstavba na Javascript, která umožňuje statické typování. Všechen kód napsaný v Javascriptu je validním také v Typescriptu. 
 \subsection{NPM}
 NPM je nástroj pro správu Javascript knihoven. Umožňuje jednoduchou instalaci knihoven použitých v projektu. V konfiguračním souboru lze nastavit nutnost použití konkrétní verze knihovny, což zajišťuje stejnou funkčnost napříč různými zařízeními. 
+\subsection{GraphQL}
+GraphQL je specifikace dotazovacího jazyka pro tvorbu API.(wikipedia) Nejpoužívanější alternativou pro GraphQL je REST. Oproti REST je u GraphQL výhodou že klient v requestu specifikuje data která chce aby byla vrácena ze serveru. Tímto je eliminován přenos nepotřebných dat a tím také celý přenos urychlen. Zároveň se klient dotazuje vždy na stejný endpoint, mění se jen obsah requestu. GraphQL je typované, což znamená že musí být předem jasné typ vrácených dat.
+
+
 % FRONTEND %%%%%%% 
 \section{Technologie pro frontend}
 \subsection{React}
@@ -132,13 +137,19 @@ GraphQL code generator je knihovna, která umožňuje generování Typescript ty
 \section{tachnologie pro backend}
 \subsection{Nodejs}
 Node js je runtime prostředí pro spouštění Javascriptu mimo prohlížeč. Hlavním důvodem pro použití bylo použití stejného programovacího jazyka pro backend i frontend, což umožňuje znovuvyužití některých funkcí (např. validace).
-\subsection{GraphQL}
-GraphQL je specifikace dotazovacího jazyka pro tvorbu API.(wikipedia) Nejpoužívanější alternativou pro GraphQL je REST. Oproti REST je u GraphQL výhodou že klient v requestu specifikuje data která chce aby byla vrácena ze serveru. Tímto je eliminován přenos nepotřebných dat a tím také celý přenos urychlen. Zároveň se klient dotazuje vždy na stejný endpoint, mění se jen obsah requestu. GraphQL je typované, což znamená že musí být předem jasné typ vrácených dat.
 
 \chapter{Úložiště dat}
     \section{Úložiště souborů}
- \subsection{Protokol}
-\subsection{Porovnání s S3}
+        \subsection{Protokol IPFS}
+        Inter Planetary File System (Meziplanetární souborový systém) je peer-to-peer trustless protokol pro ukládání a sdílení souborů v distribuovaném souborovém systému.
+        \subsubsection{Decentralizace}
+            Decentralizované protokoly nemají vlastníka a jsou utvářeny všemi uživateli společně. Tento koncept často bývá spojen s konceptem trustless, který umožňuje každému uživateli kdykoliv ověřit pravdivost obsahu, v tomto případě vygenerováním hashe a následným porovnáním dvou hashů, čímž je zabráňeno cenzuře. Decentralizace umožňuje rychlejší načtení obsahu, pokud je v blízkosti node s uloženým obsahem, nebo načtení obsahu bez nutnosti přístupu k celosvětové síti, pokud je v lokální síti node, který obsah poskytuje.
+        \subsubsection{Zpracování obsahu}
+            \paragraph{Nahrávání obshu}
+            Při ukládání souboru do IPFS je pomocí algoritmu sha-256 z obsahu souboru vygenerován hash, který slouží jako unikátní identifikátor souboru (CID) pomocí kterého je následně soubor přístupný. Vygenerovaný hash má vždy stejnou délku nezávisle na velikosti daného souboru a při nahrání souboru se shodným obsahem z jakéhokoliv zařízení bude vždy hash totožný, čímž je zajištěna neměnnost obsahu. Nahrané soubory si můžou jednotlivé nody připnout, což je ochrání před garbage collection. Po připnutí je soubor uložen do úložiště nodu a dál poskytován síti. Existují tzv. pinning services, které umožňují pronajmutí nodu, s přístupem k vysokorychlostnímu internetu a je spravován poskytovatelem. V projektu byl použit pinning service Infura. 
+            \paragraph{Přístup k obsahu} K obsahu je následně možné přistupovat skrz veřejnou gateway (např. ipfs.io, nebo cf-ipfs.com), nebo skrz gateway nodu, kde jsou připnuté soubory, díky čemuž není nutné vyhledávat nejbližší node poskytující obsah, což celý proces urychluje.
+        \subsection{Porovnání IPFS a S3}
+            Soubory v IPFS jsou adresovány na základě obsahu na rozdíl od S3, kde jsou sobory adresovány na základě lokace (to umožňuje nahrávat soubory do složek). IPFS neumožňuje nastavení oprávnění k přístupu k souboru, tzn. pokud zná uživatel CID souboru, který je v síti dostupný, nemůže mu být zabráněno v přístupu k obsahu souboru.
 
     \section{Databáze}
     \subsection{Definice grafové databáze}
@@ -173,22 +184,42 @@ GraphQL je specifikace dotazovacího jazyka pro tvorbu API.(wikipedia) Nejpouž�
                 \end{itemize}
         \subsubsection{Doporučování uživatelů}
 
+\chapter{Zabezpečení}
+\section{Validace vstupů}
+\subsection{GraphQL}
+GraphQL vyžaduje, aby uživatelův vstup byl stejného typu jako očekává (uživatel na místo čísla nemůže zadat text), tato validace je provedena ještě před začátkem akce na backendu. 
+\subsection{Validace textových vstupů}
+\paragraph{Uživatelské jméno} - musí být unikátní, může obsahovat malá a velká písmena bez diakritiky, čísla a podtržítko.
+\paragraph{Popisky a komentáře} - mohou obsahovat jakékoliv znaky, jsou omezeny poze maximální délkou. Všechny speciální znaky jsou escapovány pro zabránění injectu do databáze.
+\subsection{Souřadnice} Při vatváření příspěvku je jeho umístění validováno podle standardu ISO 6709.
+\subsection{Soubory} Middleware omezuje maximální počet najednou nahrávaných souborů na 5 při maximální velikosti jednoho souboru 20MB.
+\subsection{Historické datum}
+    \begin{itemize}
+        \item \textbf{Validace přesného data} - pokud je uživatelem zadáno přesné datum, je pro ověření jeho správnosti použita funkce JavaScriptu pro rozpoznávání dat.
+        \item \textbf{Validace data s chybějícím dnem nebo měsícem} - pokud je vyplněn pouze den a rok, den bude nastaven jako null z logických důvodů. 
+        \item \textbf{Validace roku} - minimální povolený hodnota je 1400, v případě potřeby ji lze změnit v konfiguračním souboru. Maximální hodnota je vždy aktuální rok.        
+        \item \textbf{Validace měsíce} - měsíc je zadán jako číslo od 1 do 12.
+        \item \textbf{Časové rozmezí} - pokud datum je konce rozmezí starší než datum začátku jsou tyto dvě hodnoty prohozeny. Pokud je datum začátku a konce shodné, jedná se o přesné datum (nejedná se o rozmezí), tento formát je validní.
+    \end{itemize}
+
+
 \chapter{Praktická část}
 
 
 \chapter{Obrázky}
 \section{Zpracování při nahrání}
-\subsection{Kontrola formátu a optimalizace}
-\subsection{Filtrování nevhodného obsahu}
+\subsection{Filtrování nevhodného obsahu}\label{section:nsfw_filter}
+Pro kontrolu NSFW obsahu autor použil API třetí strany (nsfw iamge classification1 Rapid API). Toto API bylo zvoleno z důvodu vysoké kvality vytrénovaného modelu a tudíž velké úspěšnosti rozpoznání nevhodného obsahu a malé míry falešně pozitivních výsledků (false positive). Příspěvky obsahující fotografii klasifikovanou jako NSFW jsou vytvořeny, ale jejich viditelnost je nastavena na skrytou, dokud některý z adminů tento příspěvek buď zamítne (poté je smazán), nebo potvrdí (je nastaven jako viditelný, s vlastností NSFW). Pokud se tento příspěvek poté má zobrazit uživateli, nejdřív je zobrazena rozmazaná verze s varováním, po jehož přijmutí lze zobrazit fotografii.
+
+\subsection{Validace souboru} Maximální velikost nahraného obrázku je 20MB.  Po nahrání je na backendu ověřeno, zda se jedná o obrázek (např. PNG, JPG, GIF), poté je převeden do formátu JPG. Pokud nejdelší strana obrázku přesahuje 2560px, obrázek je zmenšen při zachování poměru stran tak, aby jeho nejdelší strana měla 2560px. 
 \section{Optimalizace}
 \subsection{Použití komponentu Next image}
-\section{Formáty}
+Next.js poskytuje React komponentu Image, která umožňuje využívat optimalizaci obrázků (tzn. rychlejší načtení na straně klienta). V argumentech komponenty lze nastavit kvalitu obrázku a tím zmenšit datový objem nutný doručit klientovi. Zároveň obrázek není přenášen v plném rozlišení, ale je přizpůsobeno velikosti, ve které je obrázek vykreslen na obrazovce. 
 \subsection{Porovnání AVIF a WEBp}
 \section{Blurhash}
+Blurhash je formát vyvinut a využíván společností Wolt. Umožňuje vygenerování krátkého řetězce znaků z fotogrfie. Řetězec znaků lze následně vykreslit jako rozmazanou verzi fotografie, která je následně vykreslena na místě fotografie před jejím načtením. Tento detail zajišťuje lepší uživatelskou zkušenost a pocit rychlejšího načítání fotografií.
 
 
-\section{Filtrování nevhodného obsahu}\label{section:nsfw_filter}
-Pro kontrolu NSFW obsahu autor použil API třetí strany (nsfw iamge classification1 Rapid API). Toto API bylo zvoleno z důvodu vysoké kvality vytrénovaného modelu a tudíž velké úspěšnosti rozpoznání nevhodného obsahu a malé míry falešně pozitivních výsledků (false positive). Příspěvky obsahující fotografii klasifikovanou jako NSFW jsou vytvořeny, ale jejich viditelnost je nastavena na skrytou, dokud některý z adminů tento příspěvek buď zamítne (poté je smazán), nebo potvrdí (je nastaven jako viditelný, s vlastností NSFW). Pokud se tento příspěvek poté má zobrazit uživateli, nejdřív je zobrazena rozmazaná verze s varováním, po jehož přijmutí lze zobrazit fotografii.
 
 \section{Historický datum příspěvku}\label{section:historica_date}
 Každý příspěvek má datum kdy byl vytvořen a historické datum. Historické datum je datum kdy byla fotografie u příspěvku pořízena (z pravidla starší data). U takto starých dat je nutné počítat s tím že se může jedna pouze o odhad, proto není možné použít datum ve formátu podle standartu (ISO 8601) jak je zvykem. V autorem navržené struktuře se počítá s tím, že je znám alespoň rok, jako dodatečné informace lze přidat i měsíc, případně den. Zároveň se ale může jednat o určité časové období (například červen až červenec roku 1984), proto jsou vlastnosti rozděleny na počáteční a konečné datum. V případě že se o období nejedná, jsou počáteční a konečné datum stejné. V praxi jde o šest vlastnosí, které má každý příspěvek: startDay, startMonth, startYear, endDay, endMonth, endYear.
