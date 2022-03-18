@@ -189,9 +189,9 @@ Node js je runtime prostředí pro spouštění Javascriptu mimo prohlížeč. H
 \subsection{GraphQL}
 GraphQL vyžaduje, aby uživatelův vstup byl stejného typu jako očekává (uživatel na místo čísla nemůže zadat text), tato validace je provedena ještě před začátkem akce na backendu. 
 \subsection{Validace textových vstupů}
-\paragraph{Uživatelské jméno} - musí být unikátní, může obsahovat malá a velká písmena bez diakritiky, čísla a podtržítko.
-\paragraph{Popisky a komentáře} - mohou obsahovat jakékoliv znaky, jsou omezeny poze maximální délkou. Všechny speciální znaky jsou escapovány pro zabránění injectu do databáze.
-\subsection{Souřadnice} Při vatváření příspěvku je jeho umístění validováno podle standardu ISO 6709.
+\paragraph{Uživatelské jméno} - musí být unikátní, může obsahovat malá a velká písmena bez diakritiky, čísla a podtržítka.
+\paragraph{Popisky a komentáře} - mohou obsahovat jakékoliv znaky, jsou omezeny pouze délkou. Všechny speciální znaky jsou escapovány pro zabránění injectu do databáze.
+\subsection{Souřadnice} Při vatváření příspěvku jsou jeho souřadnice validovány podle standardu ISO 6709.
 \subsection{Soubory} Middleware omezuje maximální počet najednou nahrávaných souborů na 5 při maximální velikosti jednoho souboru 20MB.
 \subsection{Historické datum}
     \begin{itemize}
@@ -206,61 +206,72 @@ GraphQL vyžaduje, aby uživatelův vstup byl stejného typu jako očekává (u�
 \chapter{Praktická část}
 
 
-\chapter{Obrázky}
-\section{Zpracování při nahrání}
-\subsection{Filtrování nevhodného obsahu}\label{section:nsfw_filter}
+\section{Obrázky}
+\subsection{Zpracování při nahrání}
+\subsubsection{Filtrování nevhodného obsahu}\label{section:nsfw_filter}
 Pro kontrolu NSFW obsahu autor použil API třetí strany (nsfw iamge classification1 Rapid API). Toto API bylo zvoleno z důvodu vysoké kvality vytrénovaného modelu a tudíž velké úspěšnosti rozpoznání nevhodného obsahu a malé míry falešně pozitivních výsledků (false positive). Příspěvky obsahující fotografii klasifikovanou jako NSFW jsou vytvořeny, ale jejich viditelnost je nastavena na skrytou, dokud některý z adminů tento příspěvek buď zamítne (poté je smazán), nebo potvrdí (je nastaven jako viditelný, s vlastností NSFW). Pokud se tento příspěvek poté má zobrazit uživateli, nejdřív je zobrazena rozmazaná verze s varováním, po jehož přijmutí lze zobrazit fotografii.
 
-\subsection{Validace souboru} Maximální velikost nahraného obrázku je 20MB.  Po nahrání je na backendu ověřeno, zda se jedná o obrázek (např. PNG, JPG, GIF), poté je převeden do formátu JPG. Pokud nejdelší strana obrázku přesahuje 2560px, obrázek je zmenšen při zachování poměru stran tak, aby jeho nejdelší strana měla 2560px. 
-\section{Optimalizace}
-\subsection{Použití komponentu Next image}
-Next.js poskytuje React komponentu Image, která umožňuje využívat optimalizaci obrázků (tzn. rychlejší načtení na straně klienta). V argumentech komponenty lze nastavit kvalitu obrázku a tím zmenšit datový objem nutný doručit klientovi. Zároveň obrázek není přenášen v plném rozlišení, ale je přizpůsobeno velikosti, ve které je obrázek vykreslen na obrazovce. 
-\subsection{Porovnání AVIF a WEBp}
-\section{Blurhash}
+\subsubsection{Nahrání a validace souboru} Maximální velikost nahraného obrázku je 20MB.  Po nahrání je na backendu ověřeno, zda se jedná o obrázek (např. PNG, JPG, GIF), poté je převeden do formátu JPG. Pokud nejdelší strana obrázku přesahuje 2560px, obrázek je zmenšen při zachování poměru stran tak, aby jeho nejdelší strana měla 2560px a následně nahrán na IPFS. Následně je vygenerován blurhash, který je uložen do databze.
+\subsection{Optimalizace}
+\subsubsection{Použití komponentu Next image}
+Next.js poskytuje React komponentu Image, která umožňuje využívat optimalizaci obrázků (tzn. rychlejší načtení na straně klienta). V argumentech komponenty lze nastavit kvalitu obrázku a tím zmenšit datový objem nutný doručit klientovi. Zároveň obrázek není přenášen v plném rozlišení, ale je přizpůsobeno velikosti, ve které je obrázek vykreslen na obrazovce. Optimalizované obrázky jsou cachován na serveru, díky čemuž jsou dále poskytované instantně.
+\subsubsection{Porovnání AVIF a WEBp}
+AVIF je moderní formát obrázků. Poprvé byl použit v roce 2019 Netflixem a od roku 2021 je podporován prohlížeči. Oproti formátu WEBp zpracování obrázku trvá přibližně o 20\% déle, ale poskytuje o 20\% efektivnější kompresi.
+\subsection{Blurhash}
 Blurhash je formát vyvinut a využíván společností Wolt. Umožňuje vygenerování krátkého řetězce znaků z fotogrfie. Řetězec znaků lze následně vykreslit jako rozmazanou verzi fotografie, která je následně vykreslena na místě fotografie před jejím načtením. Tento detail zajišťuje lepší uživatelskou zkušenost a pocit rychlejšího načítání fotografií.
 
-
-
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/blurhash.png}
+	\caption{Generování a zobrazení blurhashe z původního obrázku}
+\end{figure}
+	
 \section{Historický datum příspěvku}\label{section:historica_date}
 Každý příspěvek má datum kdy byl vytvořen a historické datum. Historické datum je datum kdy byla fotografie u příspěvku pořízena (z pravidla starší data). U takto starých dat je nutné počítat s tím že se může jedna pouze o odhad, proto není možné použít datum ve formátu podle standartu (ISO 8601) jak je zvykem. V autorem navržené struktuře se počítá s tím, že je znám alespoň rok, jako dodatečné informace lze přidat i měsíc, případně den. Zároveň se ale může jednat o určité časové období (například červen až červenec roku 1984), proto jsou vlastnosti rozděleny na počáteční a konečné datum. V případě že se o období nejedná, jsou počáteční a konečné datum stejné. V praxi jde o šest vlastnosí, které má každý příspěvek: startDay, startMonth, startYear, endDay, endMonth, endYear.
 
-\section{Zobrazení mapy}
-    Pro zobrazení mapy je použit balíček react-map-gl, který umožňuje zobrazování např. bodů, polygonů a 3D terénu. Pro zobrazení konkrétních stylů mapy je použit tiling service. Mapa je rozdělena do mřížky ve které jedno pole je jeden tzv. tile, pro tile je poté ze serveru poslán obrázek na kterém je konkrétní část mapy (existují i varianty které používají místo obrázků vektorovou grafiku, což zvyšuje rychlost načítání, a eliminuje efekt rozmatanosti), výhodou je že se ze serveru posílá několik tilů zároveň a ty se poté cachují u klienta. Díky tomu není nutné stahovat data pro jednu část mapy vícekrát. V projektu byl jako tiling service použit Mapbox, jedná se o placené řešení s možností použití předvytvořených stylů mapy, nebo vytvoření zcela vlastního. Alternativou je např. Leaflet, který je poháněn open-source projektem open street maps, který ale obsahuje pouze několik stylů bez možnosti vlastní úpravy.
-    \subsection{Geolokace klienta}
-    \subsection{Ukládání poslední polohy na mapě}
+\section{Mapa}
+    Pro zobrazení mapy je použit balíček react-map-gl, který umožňuje zobrazování např. bodů, polygonů a 3D terénu. Pro zobrazení konkrétních stylů mapy je použit tiling service. Mapa je rozdělena do mřížky ve které jedno pole je jeden tzv. tile, pro tile je poté ze serveru poslán obrázek na kterém je konkrétní část mapy (existují i varianty které používají místo obrázků vektorovou grafiku, což zvyšuje rychlost načítání, a eliminuje efekt rozmatanosti), výhodou je že se ze serveru posílá několik tilů zároveň a ty se poté cachují u klienta. Díky tomu není nutné stahovat data pro jednu část mapy vícekrát. V projektu byl jako tiling service použit Mapbox, jedná se o placené řešení s možností použití předvytvořených stylů mapy, nebo vytvoření stylu zcela vlastního. Alternativou je např. Leaflet, který je poháněn open-source projektem open street maps, který ale obsahuje pouze několik stylů bez možnosti vlastní úpravy.
+    \subsection{Geolokace klienta} Pokud nejsou v parametrech URL adresy souřadnice, které mají být zobrazeny, script si vyžádá povolení přístupu k geolokaci. Pokud je přístup povolen, automaticky je lokace mapy nastaven na souřadnice poskytnuté prohlížečem.
+    \subsection{Souřadnice v URL adrese}
+    Při každém pohybu po mapě jsou souřadnice středu uloženy do paramterů URL adresy. Díky tomu je při obnovení stránky pozice mapy zůstane nezměněna. Toto také umožňuje sdílet konkrétní lokaci na mapě pouze sdílením URL adresy.
     \subsection{Dotazy na server}
+    Při změně pohybu mapy je na server odeslán dotaz na všechna místa, které se nacházejí v zobrazené oblasti. Pro zamezení přenosu zbytečných dat dotaz obsahuje seznam míst, která již byla fetchnuta a nacházejí se v dané oblasti, tato místa jsou vynechána z odpovědi serveru.
     \subsection{Seskupování bodů}
     Místa na mapě jsou zobrazena jako ikony s fotografií místa. Pokud by bylo mnoho bodů na malém prostoru, mohly by se nevzájem překrývat, snižovat přehlednost a zpomalovat pohyb po mapě. Proto je použit tzv. clustering (shlukování více bodů), místo těchto bodů je pak vykreslen pouze jeden, který se nachází na souřadnicích rovnajících se průměru souřadnic všech bodů, které cluster obsahuje. Pro rozhodnutí, který obrázek bude na mapě použit jako ikona jsou porovnány vzdálenosti všech bodů v clusteru od středu clusteru, a jako náhled je použit náhled místa, které je nejblíže středu clusteru. V pravém vrchním rohu ikony je poté číslo vyjadřující počet míst seskupených v clusteru.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=4cm]{images/places_cluster.png}
+	\caption{Zobrazení seskupení několika míst na mapě}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=4cm]{images/place.png}
+	\caption{Zobrazení jednoho místa na mapě}
+\end{figure}
 
-\chapter{Docker}
-Docker je platforma která umožňuje vytvořit virtuální prostředí pro 
-běh aplikace, které je odděleno od hostitelského prostředí.
-Výhodou jsou předem dané podmínky pro běh aplikace, které zůstávají
-bez ohledu na počítač na kterém toto prostředí beží. 
-\subsection{Docker image}
-Docker image je soubor, který je použit pro spuštění kontejneru, který
-může obsahovat například aplikaci. Výhodou je spuštění aplikace,
-nebo celého vývojového prostředí (databáze, úložiště soubory, atd.) pomcí
-jednoho příkazu.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/map_page.png}
+	\caption{Stránka s mapou}
+\end{figure}
 
-\chapter{Kontrola kvality kódu}
+\chapter{Nasazení na server}
+\section{Docker}
+Docker je soubor platforem a služeb poskytujících virtualizaci na úrovni operačního systému pro spouštění softwaru v balíčcích nazývané kontejnery. Docker zajišťuje že programy a aplikace vždy poběží ve stejném prostředí nezávisle na zařízení nebo operačním systému. Jednoduchost spuštění kontejneru usnadňuje nasazení aplikace na server. Celý projekt včetně databáze a úložiště je pak možné spustit jedním skriptem bez nutnosti nastavování.
+
+\chapter{Vývoj}
 \section{Verzování}
-GIT
+Git je software pro sledování změn v souborech, které jsou součástí repozitáře. Git poskytuje možnost se kdykoliv vrátit do jakékoliv verze projektu. Git lze také použít při kolaboraci více programátorů, nebo pro synchronizaci kódu.
 \section{Testování}
 \subsection{Při vývoji}  
-
-\subsection{Na produkci} 
-\subsubsection{Vizuální testy}
-\subsubsection{API}
+\paragraph{Unit testing} je automatizované testování jednotlivých funkcí kódu zadáním vstupních parametrů a následným porovnání výsledků s očekávanými výsledky.
+\paragraph{Linter} je označení pro skupinu nástrojů, analyzující statický kód bez nutnosti jeho spuštění. Zároveň zajišťuje jednostnost kódu kontrolou pravidel pro formátování. 
 \subsubsection{Nahlašování vzniklých chyb}
+\paragraph{Sentry}
 
 
  
-\section{Formátotvání kódu}  
-\subsection{Prettier}
-\subsection{Eslint}
-
 
 \section{CI/CD}
 \subsection{Aktualizace knihoven}
