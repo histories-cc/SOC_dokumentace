@@ -47,6 +47,11 @@
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{1pt}
 
+\newenvironment{propertiesItemize}{
+  \begin{itemize}  \begin{itemize}{ 
+  }}
+  {\end{itemize}\end{itemize}}
+
 \usepackage{booktabs}
 
 \usepackage{url}
@@ -137,10 +142,10 @@ GraphQL code generator je knihovna, která umožňuje generování Typescript ty
 \section{tachnologie pro backend}
 \subsection{Nodejs}
 Node js je runtime prostředí pro spouštění Javascriptu mimo prohlížeč. Hlavním důvodem pro použití bylo použití stejného programovacího jazyka pro backend i frontend, což umožňuje znovuvyužití některých funkcí (např. validace).
-
+ 
 \chapter{Úložiště dat}
     \section{Úložiště souborů}
-        \subsection{Protokol IPFS}
+        \subsection{Protokol IPFS}\label{subsection:IPFS}
         Inter Planetary File System (Meziplanetární souborový systém) je peer-to-peer trustless protokol pro ukládání a sdílení souborů v distribuovaném souborovém systému.
         \subsubsection{Decentralizace}
             Decentralizované protokoly nemají vlastníka a jsou utvářeny všemi uživateli společně. Tento koncept často bývá spojen s konceptem trustless, který umožňuje každému uživateli kdykoliv ověřit pravdivost obsahu, v tomto případě vygenerováním hashe a následným porovnáním dvou hashů, čímž je zabráňeno cenzuře. Decentralizace umožňuje rychlejší načtení obsahu, pokud je v blízkosti node s uloženým obsahem, nebo načtení obsahu bez nutnosti přístupu k celosvětové síti, pokud je v lokální síti node, který obsah poskytuje.
@@ -163,34 +168,73 @@ Node js je runtime prostředí pro spouštění Javascriptu mimo prohlížeč. H
         Constraints je sada omezení při práci s daty. Lze omezovat na základě vlastností vrcholu (např. nelze vytvořit vrchol \uv{user} bez vlastnosti \uv{username}), na základě hran (např. nemůže existovat vrchol \uv{post} bez hrany \uv{created} spojující ho s uživatelem, nemůže existovat hrana sleduje mezi vrcholy \uv{user} a \uv{post}), na základě datových typů (např. vlastnost \uv{email} vrcholu \uv{user} musí být vždy typu string)
     \subsection{Dotazovací jazyk Cypher Query Language}
         Cypher je výchozí dotazovací jazyk pro Neo4j. Syntaxí je podobý jazyku SQL.
-    \subsection{Porovnání Neo4j a PostgreSQL}
-    \subsection{Práce s daty}
+        
+    \subsection{Datová struktura - seznam entit a jejich relace}
         Podle konvencí Neo4j jsou všechny vrcholy pojmenovány s velkým písmenem na začátku a hrany se všemi písmeny velkými, pokud se jedná o víceslovný název, jednotlivá slova jsou oddělena podtržítkem.
-        \subsubsection{Datová struktura}
-            \paragraph{Vrcholy}
-                \begin{itemize}
-    	            \item \textbf{User} (uživatel) - Obsahuje uživatelská data jako jsou např. křestní jméno, příjmení, email, datum a čas vytvoření, hash hesla. Uživatel má společnou hranu \uv{CREATED} s každou entitou, kterou vytvořil (např. \uv{Comment}, \uv{Post}, \uv{Collection}).
-    	            \item \textbf{Post} (příspěvek) - Obsahuje datum vytvoření, popisek, jestli se nejedná o nevhodný obsah a historický datum ve formátu popsaném v sekci \ref{section:historica_date}. Vrchol \uv{Photo} může mít společnou hranu \uv{BELONGS\_TO} s vrcholem \uv{Post}, kterým je fotografie nahraná k příspěvku. Příspěvek má společnou hranu \uv{IS\_LOCATED} s vrcholem \uv{Place}, tímto se zajistí přiřazovaní příspěvků k místům.
-    	            \item \textbf{Photo} (fotografie) - Každá použitá fotografie je uložena jako vrchol. Obsahuje vlastnosti blurhash (\ref{TBD}), hash (IPFS content id \ref{}), výšku a šířku (pro správné vykreslování blurhashe na frontendu), index (v případě že je k jednomu příspěvku přiřazeno více fotografií, řadí se podle této vlastnosti).
-    	            \item \textbf{Place} (místo) - Znázorňuje jedno místo na mapě. Obsahuje vlastnosti location (je použit datový typ point, pro jednodušší zpracování), název a popisek. Může mít hranu \uv{HAS\_PREVIEW} s vrcholem \uv{Photo}, vrchol \uv{Photo} je potom náhled místa, zobrazující se na mapě, nebo v jeho detailu.
-    	            \item \textbf{Comment} (komentář) - Má společnou hranu \uv{BELONGS\_TO} s vrcholem \uv{Post}. Obsahuje vlastnost \uv{content} (text komentáře). Může mít společnou hranu \uv{LIKE} s vrcholem \uv{User}, pokud ho nějaký uživatel označí jako oblíbený.
-    	            \item \textbf{Collection} (kolekce) - Má společnou hranu \uv{CONTAINS} s vrcholy \uv{Post}. Obsahuje vlastnosti název a popis.
-            	\end{itemize}
-            \paragraph{Hrany}
-                \begin{itemize}
-    	            \item \textbf{FOLLOW} (sleduje) - Může být pouze mezi vrcholy \uv{User}.
-    	            \item \textbf{LIKE} (líbí se) - Může být pouze mezi vrcholem \uv{User} a \uv{Post}.
-    	            \item \textbf{REPORT} (nahlášení) - Může být pouze mezi vrcholem \uv{User} a \uv{Post}.
-                \end{itemize}
-        \subsubsection{Doporučování uživatelů}
+            Všechny vrcholy mají vlastnosti createdAt obsahující čas jejich vytvoření a id (unikátní identifikátor).
+
+    	            \subsubsection{User (uživatel)}  Má relaci \uv{CREATED} s každou entitou, kterou vytvořil (např. \uv{Comment}, \uv{Post}, \uv{Collection}).
+                         \subparagraph{Vlastnosti:}  
+                           \begin{propertiesItemize}
+                                \item \textbf{username} (uživatelské jméno) - každé uživatelské jméno musí být unikátní bez ohledu na malá a velká písmena. Může obsahovat pouze písmena bez diakritiky, čísla a podtržítka
+                                \item \textbf{email} - obsahuje unikátní email uživatele
+                                \item \textbf{firstName} - křestní jméno uživatele
+                                \item \textbf{lastName} - příjmení uživatele (tato vlastnost je nepovinná)
+                                \item \textbf{googleID} - je vyplněno pouze pokud použije uživatel registraci pomocá Google účtu, jedná se uživatelské id poskytnuté Google API 
+                                \item \textbf{verified} - pokud má hodnotu true, jedná se o ověřeného uživatele. Uživatel je automaticky ověřený, pokud je zaregistrován pomocí Goolge účtu, jinak je nutné potvrdit ověřovací email. Pokud uživatel neověří svůj účet do 3 dnů, bude smazán. 
+                                \item \textbf{passwordResetToken} (token pro reset hesla) - tato vlastnost je pouze u uživatelů, kteří zapomněli své heslo. Token je z bezpečnostních důvodů platný pouze 24 hodin od vytvoření a je zaslán pomocí emailu.  
+                                \item \textbf{authorizationToken} (autorizační token) - je odeslán na uživatelem zadaný email a násleně použit při ověření uživatele
+                                \item \textbf{isAdmin} - pokud se jedná o administrátorský účet, je nastavená jako true
+                                \item \textbf{password} (heslo) - ukládá hash hesla vygenerovaný pomocí algoritmu bcrypt
+                        \end{propertiesItemize}
+
+    	            \subsubsection{Post (příspěvek)}  Může mít relaci \uv{BELONGS\_TO} s entitou \uv{Photo} a relaci \uv{IS\_LOCATED} s entitou \uv{Place}.
+                          \subparagraph{Vlastnosti:}
+ \begin{propertiesItemize}
+                                \item \textbf{description} - uživatelem zadaný text příspěvku 
+                                \item \textbf{historické datum} - datum kdy byla historická fotografie pořízena podle formátu popsaného v \ref{section:historical_date}
+\end{propertiesItemize}
+    	            \subsubsection{Photo (fotografie)} Každý použitý obrázek je uložen jako entita \uv{Photo}.
+	                    \subparagraph{Vlastnosti:}  
+                           \begin{propertiesItemize}
+                                \item \textbf{index} - pokud příspěvek obshuje více obrázků, budou seřazeny vzestupně podle této vlastnosti
+                                \item \textbf{blurhash} \ref{subsection:blurhash} - obsahuje vygenerovaný řetězec znaků
+                                \item \textbf{hash} obsahuje unikátní identifikátor souboru viz. \ref{subsection:IPFS}
+                                \item \textbf{width} - šířka obrázku v pixelech, spolu s výškou (height) je použita pro lepší vykreslení blurhashe na frontendu 
+                                \item \textbf{height} - výška obrázku v pixelech
+                                \item \textbf{nsfw} - pokud se jedná od NSFW fotografii její hodnota je true. Popis vyhodnocování fotografie je popsán v \ref{section:nsfw_filter}.
+                        \end{propertiesItemize}
+    	            \subsubsection{Place (místo)} Každé místo na mapě je uloženo jako entita \uv{Place}. Může mít relaci \uv{HAS\_PREVIEW} s enitou \uv{Photo}, všechny příspěvky s fotografií tohoto místa s ním mají relaci \uv{IS\_LOCATED}.
+    	             \subparagraph{Vlastnosti:}  
+                           \begin{propertiesItemize}
+                                \item \textbf{location} - obsahuje souřadnice uložené jako typ point 
+                                \item \textbf{name} - název místa, společně s vlastností description může být změněno pouze uživateli s administrátorským oprávněním
+                                \item \textbf{description} - popis místa
+                                \item \textbf{icon} - významná místa mohou mít vlastní ikonu, která se poté zobrazuje na mapě, tato vlastnost obsahuje IPFS hash souboru s ikonou
+                        \end{propertiesItemize}
+    	            \subsubsection{Comment (komentář)} Má společnou hranu \uv{BELONGS\_TO} s vrcholem \uv{Post}. Obsahuje vlastnost \uv{content} (text komentáře). Může mít společnou hranu \uv{LIKE} s vrcholem \uv{User}, pokud ho nějaký uživatel označí jako oblíbený.
+    	                        \subparagraph{Vlastnosti:}  
+                           \begin{propertiesItemize}
+                                \item \textbf{content} - samotný text komentáře 
+                                \item \textbf{edited} - výchozí hodnota je false, pokud uživatel svůj komentář změní, je nastavena na true, pro informaci ostatních uživatelů (komentáře reagující na změněný komentář by se po změně mohly zdát nerelevantní) 
+                        \end{propertiesItemize}
+    	            \subsubsection{Collection (kolekce)} Má relaci \uv{CONTAINS} se všemi příspěvky, které jsou v ní uloženy. 
+	                        \subparagraph{Vlastnosti:}  
+                           \begin{propertiesItemize}
+                                \item \textbf{name} - název kolekce
+                                \item \textbf{description} - uživatelem vytvořený popisek 
+                                \item \textbf{isPrivate} - pokud má tato vlastnost hodnotu true, kolekci bude mít možnost vidět pouze uživatel, který ji vytvořil, nebo uživatelé s administrátorským oprávněním, v opačném případě bude přístupná komukoliv
+                        \end{propertiesItemize}
+  
+        \subsection{Analýza a práce s daty}
 
 \chapter{Zabezpečení}
 \section{Validace vstupů}
 \subsection{GraphQL}
-GraphQL vyžaduje, aby uživatelův vstup byl stejného typu jako očekává (uživatel na místo čísla nemůže zadat text), tato validace je provedena ještě před začátkem akce na backendu. 
+GraphQL provádí základní validaci vstupu ověřením jeho typu (uživatel na místo čísla nemůže zadat text). 
 \subsection{Validace textových vstupů}
-\paragraph{Uživatelské jméno} - musí být unikátní, může obsahovat malá a velká písmena bez diakritiky, čísla a podtržítka.
-\paragraph{Popisky a komentáře} - mohou obsahovat jakékoliv znaky, jsou omezeny pouze délkou. Všechny speciální znaky jsou escapovány pro zabránění injectu do databáze.
+\paragraph{Uživatelské jméno}\label{paragraph:username} - musí být unikátní, může obsahovat malá a velká písmena bez diakritiky, čísla a podtržítka.
+\paragraph{Popisky příspěvků a komentáře} - mohou obsahovat jakékoliv znaky, jsou omezeny pouze délkou. Všechny speciální znaky jsou escapovány pro zabránění injectu do databáze.
 \subsection{Souřadnice} Při vatváření příspěvku jsou jeho souřadnice validovány podle standardu ISO 6709.
 \subsection{Soubory} Middleware omezuje maximální počet najednou nahrávaných souborů na 5 při maximální velikosti jednoho souboru 20MB.
 \subsection{Historické datum}
@@ -217,8 +261,12 @@ Pro kontrolu NSFW obsahu autor použil API třetí strany (nsfw iamge classifica
 Next.js poskytuje React komponentu Image, která umožňuje využívat optimalizaci obrázků (tzn. rychlejší načtení na straně klienta). V argumentech komponenty lze nastavit kvalitu obrázku a tím zmenšit datový objem nutný doručit klientovi. Zároveň obrázek není přenášen v plném rozlišení, ale je přizpůsobeno velikosti, ve které je obrázek vykreslen na obrazovce. Optimalizované obrázky jsou cachován na serveru, díky čemuž jsou dále poskytované instantně.
 \subsubsection{Porovnání AVIF a WEBp}
 AVIF je moderní formát obrázků. Poprvé byl použit v roce 2019 Netflixem a od roku 2021 je podporován prohlížeči. Oproti formátu WEBp zpracování obrázku trvá přibližně o 20\% déle, ale poskytuje o 20\% efektivnější kompresi.
-\subsection{Blurhash}
-Blurhash je formát vyvinut a využíván společností Wolt. Umožňuje vygenerování krátkého řetězce znaků z fotogrfie. Řetězec znaků lze následně vykreslit jako rozmazanou verzi fotografie, která je následně vykreslena na místě fotografie před jejím načtením. Tento detail zajišťuje lepší uživatelskou zkušenost a pocit rychlejšího načítání fotografií.
+
+%% BLURHASH
+\subsection{Blurhash}\label{subsection:blurhash}
+Blurhash je formát vyvinut a využíván společností Wolt. Umožňuje vygenerování krátkého řetězce znaků z fotogrfie.
+Řetězec znaků lze následně vykreslit jako rozmazanou verzi fotografie, která je následně vykreslena na místě fotografie před jejím načtením.
+Tento detail zajišťuje lepší uživatelskou zkušenost a pocit rychlejšího načítání fotografií.
 
 \begin{figure}[h]
 	\centering
@@ -226,8 +274,8 @@ Blurhash je formát vyvinut a využíván společností Wolt. Umožňuje vygener
 	\caption{Generování a zobrazení blurhashe z původního obrázku}
 \end{figure}
 	
-\section{Historický datum příspěvku}\label{section:historica_date}
-Každý příspěvek má datum kdy byl vytvořen a historické datum. Historické datum je datum kdy byla fotografie u příspěvku pořízena (z pravidla starší data). U takto starých dat je nutné počítat s tím že se může jedna pouze o odhad, proto není možné použít datum ve formátu podle standartu (ISO 8601) jak je zvykem. V autorem navržené struktuře se počítá s tím, že je znám alespoň rok, jako dodatečné informace lze přidat i měsíc, případně den. Zároveň se ale může jednat o určité časové období (například červen až červenec roku 1984), proto jsou vlastnosti rozděleny na počáteční a konečné datum. V případě že se o období nejedná, jsou počáteční a konečné datum stejné. V praxi jde o šest vlastnosí, které má každý příspěvek: startDay, startMonth, startYear, endDay, endMonth, endYear.
+\section{Historický datum příspěvku}\label{section:historical_date}
+Každý příspěvek má datum kdy byl vytvořen a historické datum. Historické datum je datum kdy byla fotografie u příspěvku pořízena (z pravidla starší data). U takto starých dat je nutné počítat s tím že se může jedna pouze o odhad, proto není možné použít datum ve formátu podle standartu ISO 8601 jak je zvykem. V autorem navržené struktuře se počítá s tím, že je znám alespoň rok, jako dodatečné informace lze přidat i měsíc, případně den. Zároveň se ale může jednat o určité časové období (například červen až červenec roku 1984), proto jsou vlastnosti rozděleny na počáteční a konečné datum. V případě že se o období nejedná, jsou počáteční a konečné datum stejné. V praxi jde o šest vlastnosí, které má každý příspěvek: startDay, startMonth, startYear, endDay, endMonth, endYear.
 
 \section{Mapa}
     Pro zobrazení mapy je použit balíček react-map-gl, který umožňuje zobrazování např. bodů, polygonů a 3D terénu. Pro zobrazení konkrétních stylů mapy je použit tiling service. Mapa je rozdělena do mřížky ve které jedno pole je jeden tzv. tile, pro tile je poté ze serveru poslán obrázek na kterém je konkrétní část mapy (existují i varianty které používají místo obrázků vektorovou grafiku, což zvyšuje rychlost načítání, a eliminuje efekt rozmatanosti), výhodou je že se ze serveru posílá několik tilů zároveň a ty se poté cachují u klienta. Díky tomu není nutné stahovat data pro jednu část mapy vícekrát. V projektu byl jako tiling service použit Mapbox, jedná se o placené řešení s možností použití předvytvořených stylů mapy, nebo vytvoření stylu zcela vlastního. Alternativou je např. Leaflet, který je poháněn open-source projektem open street maps, který ale obsahuje pouze několik stylů bez možnosti vlastní úpravy.
