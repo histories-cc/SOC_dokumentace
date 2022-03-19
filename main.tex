@@ -134,6 +134,7 @@ GraphQL je dotazovací jazyk pro API \cite{graphqlIntroduction}. Nejpoužívaně
 
 % FRONTEND %%%%%%% 
 \section{Technologie pro frontend}
+Frontend je grafické rozhraní, které uživateli umožňuje komunikovat skrz API s backendem a ovládat aplikaci bez znalostí programování, pomocí grafického rozhraní. Tento pojem je nejčastěji používán právě ve spojení s webovými aplikacemi, ale za frontend lze označit také např. mobilní aplikaci. \cite{whatIsFrontend}
 \subsection{React}
 React je Javascriptová knihovna pro tvorbu webových stránek zjednodušující práci s měnícími se daty. Kód je dělen na jednotlivé celky nazývané komponenty \cite{reactComponentsAndProps}. Komponenty mohou být v kódu používány vícekrát, což vede k zjednodušení a zefektivnění psaní kódu. \cite{gettingStartedReact}
 \subsection{Next.js}
@@ -144,6 +145,8 @@ Tailwind je open-source CSS framework, který umožňuje rychlejší a přehledn
 GraphQL code generator je knihovna, která umožňuje generování Typescript typů z GraphQL schématu. Díky tomu není nutné vytvářet zvlášť nové typy pro GraphQL response. \cite{graphqlCodeGeneratorDocs}
 % BACKEND %%%%%%% 
 \section{tachnologie pro backend}
+Za backend je označována část kódu běžící na server, se kterou lze komunikovat pouze pomocí API. Tato část se stará o např. ověřování vstupů, rozesílání emailů a veškeré zápisy do databáze a manipulaci s daty
+\cite{whatIsFrontend}
 \subsection{Nodejs}
 Node js je runtime environment pro spouštění Javascriptu mimo prohlížeč. Hlavním důvodem pro použití bylo použití stejného programovacího jazyka pro backend i frontend, což umožňuje opakované využívání některých funkcí (např. validace). \cite{aboutNodeJS}
  
@@ -180,16 +183,17 @@ Node js je runtime environment pro spouštění Javascriptu mimo prohlížeč. H
     	            \subsubsection{User (uživatel)}  Má relaci \uv{CREATED} s každou entitou, kterou vytvořil (např. \uv{Comment}, \uv{Post}, \uv{Collection}).
                          \subparagraph{Vlastnosti:}  
                            \begin{propertiesItemize}
-                                \item \textbf{username} (uživatelské jméno) - každé uživatelské jméno musí být unikátní bez ohledu na malá a velká písmena. Může obsahovat pouze písmena bez diakritiky, čísla a podtržítka
+                                \item \textbf{username} (uživatelské jméno) - každé uživatelské jméno musí být unikátní bez ohledu na malá a velká písmena; může obsahovat pouze písmena bez diakritiky, čísla a podtržítka
                                 \item \textbf{email} - obsahuje unikátní email uživatele
                                 \item \textbf{firstName} - křestní jméno uživatele
                                 \item \textbf{lastName} - příjmení uživatele (tato vlastnost je nepovinná)
+                                \item \textbf{bio} - vlastní popisek uživatele
                                 \item \textbf{googleID} - je vyplněno pouze pokud použije uživatel registraci pomocá Google účtu, jedná se uživatelské id poskytnuté Google API 
-                                \item \textbf{verified} - pokud má hodnotu true, jedná se o ověřeného uživatele. Uživatel je automaticky ověřený, pokud je zaregistrován pomocí Goolge účtu, jinak je nutné potvrdit ověřovací email. Pokud uživatel neověří svůj účet do 3 dnů, bude smazán. 
-                                \item \textbf{passwordResetToken} (token pro reset hesla) - tato vlastnost je pouze u uživatelů, kteří zapomněli své heslo. Token je z bezpečnostních důvodů platný pouze 24 hodin od vytvoření a je zaslán pomocí emailu.  
+                                \item \textbf{verified} - pokud má hodnotu true, jedná se o ověřeného uživatele; uživatel je automaticky ověřený, pokud je zaregistrován pomocí Goolge účtu, jinak je nutné potvrdit ověřovací email; pokud uživatel neověří svůj účet do 3 dnů, bude smazán
+                                \item \textbf{passwordResetToken} (token pro reset hesla) - tato vlastnost je pouze u uživatelů, kteří zapomněli své heslo; token je z bezpečnostních důvodů platný pouze 24 hodin od vytvoření a je zaslán pomocí emailu
                                 \item \textbf{authorizationToken} (autorizační token) - je odeslán na uživatelem zadaný email a násleně použit při ověření uživatele
                                 \item \textbf{isAdmin} - pokud se jedná o administrátorský účet, je nastavená jako true
-                                \item \textbf{password} (heslo) - ukládá hash hesla vygenerovaný pomocí algoritmu bcrypt
+                                \item \textbf{password} - ukládá hash hesla vygenerovaný pomocí algoritmu bcrypt
                         \end{propertiesItemize}
 
     	            \subsubsection{Post (příspěvek)}  Může mít relaci \uv{BELONGS\_TO} s entitou \uv{Photo} a relaci \uv{IS\_LOCATED} s entitou \uv{Place}.
@@ -206,7 +210,7 @@ Node js je runtime environment pro spouštění Javascriptu mimo prohlížeč. H
                                 \item \textbf{hash} obsahuje unikátní identifikátor souboru viz. \ref{subsection:IPFS}
                                 \item \textbf{width} - šířka obrázku v pixelech, spolu s výškou (height) je použita pro lepší vykreslení blurhashe na frontendu 
                                 \item \textbf{height} - výška obrázku v pixelech
-                                \item \textbf{nsfw} - pokud se jedná od NSFW fotografii její hodnota je true. Popis vyhodnocování fotografie je popsán v \ref{section:nsfw_filter}.
+                                \item \textbf{nsfw} - pokud se jedná od NSFW fotografii její hodnota je true; popis vyhodnocování fotografie je popsán v \ref{section:nsfw_filter}.
                         \end{propertiesItemize}
     	            \subsubsection{Place (místo)} Každé místo na mapě je uloženo jako entita \uv{Place}. Může mít relaci \uv{HAS\_PREVIEW} s enitou \uv{Photo}, všechny příspěvky s fotografií tohoto místa s ním mají relaci \uv{IS\_LOCATED}.
     	             \subparagraph{Vlastnosti:}  
@@ -216,7 +220,7 @@ Node js je runtime environment pro spouštění Javascriptu mimo prohlížeč. H
                                 \item \textbf{description} - popis místa
                                 \item \textbf{icon} - významná místa mohou mít vlastní ikonu, která se poté zobrazuje na mapě, tato vlastnost obsahuje IPFS hash souboru s ikonou
                         \end{propertiesItemize}
-    	            \subsubsection{Comment (komentář)} Má společnou hranu \uv{BELONGS\_TO} s vrcholem \uv{Post}. Obsahuje vlastnost \uv{content} (text komentáře). Může mít společnou hranu \uv{LIKE} s vrcholem \uv{User}, pokud ho nějaký uživatel označí jako oblíbený.
+    	            \subsubsection{Comment (komentář)} Má relaci \uv{BELONGS\_TO} s entitou \uv{Post}.
     	                        \subparagraph{Vlastnosti:}  
                            \begin{propertiesItemize}
                                 \item \textbf{content} - samotný text komentáře 
@@ -232,8 +236,15 @@ Node js je runtime environment pro spouštění Javascriptu mimo prohlížeč. H
   
         \subsection{Analýza a práce s daty}
 
-\chapter{Zabezpečení}
+
+\chapter{Uživatelské vstupy}
+\section{Rozšířené možnosti v textových vstupech}
+Následující možnosti jsou možné ve všech textových vstupech určených pro delší text (např. popis uživatelského účtu (bio), popis příspěvku, nebo komentáře)
+\paragraph{Označit uživatele} je možné zadáním znaku zavináče následovaným uživatelským jménem označeného uživatele. Uživatelské jméno bude poté v textu zvýrazěno modrou barvou, pokud se jedná o uživatelské jméno přihlášeného uživatele, bude označeno žloutou barvou a po kliknutí na něj bude uživatel přesměrován na profil označeného uživatele. Pokud si označený uživatel změní své uživatelské jméno, všechna označení starého uživatelského jména budou nahrazena novým.
+\paragraph{Zvýraznit text} lze buď ztučnením, nebo podtržení. Pokud je část textu ohraničená dvěmi hvězdičkami (např. \uv{**Pardubice** jsou město}) bude vykreslen jako tučný text, pokud bude část textu označena dvěmi podtržítky (př. \uv{Pardubické závodiště (\_\_hipodrom\_\_)}), bude vykreslena kurzívou.
+
 \section{Validace vstupů}
+Všechny textové vstupy zadané uživatelem je nutné validovat (tj. ověřovat jestli neobsahují nechtěné znaky nebo řetězce znaků). Pokud by vstupy nebyly validovány mohl by uživatel např. získat přístup k databázi, nebo přepisovat obsah stránky (pokud by nebyl použit framework, který tuto chybu ošetřuje) vložením škodlivého textu.
 \subsection{GraphQL}
 GraphQL provádí základní validaci vstupu ověřením jeho typu (uživatel na místo čísla nemůže zadat text). 
 \subsection{Validace textových vstupů}
@@ -281,38 +292,59 @@ Tento detail zajišťuje lepší uživatelskou zkušenost a pocit rychlejšího 
 \section{Historický datum příspěvku}\label{section:historical_date}
 Každý příspěvek má datum kdy byl vytvořen a historické datum. Historické datum je datum kdy byla fotografie u příspěvku pořízena (z pravidla starší data). U takto starých dat je nutné počítat s tím že se může jedna pouze o odhad, proto není možné použít datum ve formátu podle standartu ISO 8601 jak je zvykem. V autorem navržené struktuře se počítá s tím, že je znám alespoň rok, jako dodatečné informace lze přidat i měsíc, případně den. Zároveň se ale může jednat o určité časové období (například červen až červenec roku 1984), proto jsou vlastnosti rozděleny na počáteční a konečné datum. V případě že se o období nejedná, jsou počáteční a konečné datum stejné. V praxi jde o šest vlastnosí, které má každý příspěvek: startDay, startMonth, startYear, endDay, endMonth, endYear.
 
+
+
+\section{Oprávnění uživatelů}
+Oprávnění uživatelů se dělí na následující čtyři kategorie:
+\paragraph{Nepřihlášení uživatelé} nejsou nijak omezeni v zobrazování obsahu (kromě soukromých kolekcí). Nemají však žádnou možnost přidávání, úpravy ani odebírání obsahu, včetně jeho nahlašování.
+\paragraph{Neověření přihlášení uživatelé bez administrátorských oprávnění} mohou sledovat ostatní uživatele a označovat příspěvky jako oblíbené, nemají možnost přidávat žádný obsah ani nahlašovat příspěvky ostatnách uživatelů. Za ověřeného uživatele je považován uživatel zaregistrovaný s Google účtem, nebo uživatel, který potvrdil vlastnictví zadané emailové adresy skrz ověřovací email. Pokud uživatel nepotvrdí svou emailovou adresu přes potvrzovací email, po třech dnech bude jeho účet smazán.
+\paragraph{Ověření přihlášení uživatelé bez administrátorských oprávnění} mohou zobrazovat veškerý obsah kromě soukromých kolekcí ostatních uživatelů), vytvářet, upravovat a odstraňovat vlasní příspěvky, komentáře a kolekce. Mohou také označovat příspěvky jako oblíbené, přidávat a odebírat příspěvky z vlastních kolekcí a sledovat ostatní uživatele. Mají také přístup k nastavení, ve kterém mohou měnit údaje týkající se jejich účtu jako jsou například uživatelské jméno, křestní jméno, příjmení atd. Pokud se domnívají,že příspěvek cizích uživatele je nevhodný a neměl by se na Histories nacházet, mohou ho nahlásit.
+\paragraph{Přihlášení uživatelé s administrátorským oprávněním} mají všechny možnosti jako standartní uživatelé rozšířené o možnost označit fotografii v příspěvku jakéhokoliv uživatele jako NSFW, měnit název, popisek, umístění a náhled místa a mazání příspěvků a komentářů ostatních uživatelů, pokud usoudí, že se jedná o nevhodný obsah. Administrátorský účet musí vždy být označen jako ověřený.
+
 \section{Mapa}
-    Pro zobrazení mapy je použit balíček react-map-gl, který umožňuje zobrazování např. bodů, polygonů a 3D terénu. Pro zobrazení konkrétních stylů mapy je použit tiling service. Mapa je rozdělena do mřížky ve které jedno pole je jeden tzv. tile, pro tile je poté ze serveru poslán obrázek na kterém je konkrétní část mapy (existují i varianty které používají místo obrázků vektorovou grafiku, což zvyšuje rychlost načítání, a eliminuje efekt rozmatanosti), výhodou je že se ze serveru posílá několik tilů zároveň a ty se poté cachují u klienta. Díky tomu není nutné stahovat data pro jednu část mapy vícekrát. V projektu byl jako tiling service použit Mapbox, jedná se o placené řešení s možností použití předvytvořených stylů mapy, nebo vytvoření stylu zcela vlastního. Alternativou je např. Leaflet, který je poháněn open-source projektem open street maps, který ale obsahuje pouze několik stylů bez možnosti vlastní úpravy.
-    \subsection{Geolokace klienta} Pokud nejsou v parametrech URL adresy souřadnice, které mají být zobrazeny, script si vyžádá povolení přístupu k geolokaci. Pokud je přístup povolen, automaticky je lokace mapy nastaven na souřadnice poskytnuté prohlížečem.
-    \subsection{Souřadnice v URL adrese}
-    Při každém pohybu po mapě jsou souřadnice středu uloženy do paramterů URL adresy. Díky tomu je při obnovení stránky pozice mapy zůstane nezměněna. Toto také umožňuje sdílet konkrétní lokaci na mapě pouze sdílením URL adresy.
-    \subsection{Dotazy na server}
-    Při změně pohybu mapy je na server odeslán dotaz na všechna místa, které se nacházejí v zobrazené oblasti. Pro zamezení přenosu zbytečných dat dotaz obsahuje seznam míst, která již byla fetchnuta a nacházejí se v dané oblasti, tato místa jsou vynechána z odpovědi serveru.
+    Pro zobrazení mapy je použit balíček react-map-gl, který umožňuje zobrazování např. markerů (značek), polygonů a 3D terénu. Pro zobrazení konkrétních stylů mapy je použit tiling service. Mapa je rozdělena do virtuální mřížky (jedno pole je jeden tzv. tile), pro každý tile je poté ze serveru poslán obrázek na kterém je konkrétní část mapy (některé tiling services používají místo rastrové grafiky grafiku vektorovou, což například snižuje nároky na síť), server posílá několik tilů zároveň, ty jsou poté cachovány u klienta. Díky tomu není nutné stahovat data pro jednu část mapy vícekrát. V projektu byl jako tiling service použit Mapbox, jedná se o placené řešení s možností použití předvytvořených stylů, nebo vytvořením stylu zcela vlastního. Alternativou je např. Leaflet, který je používá open-source projek Open street maps. Jeho nevýhodou je malé množství stylů mapy bez možnosti vlastní úpravy.
+    \subsection{Zobrazení webové stránky}
+    Náhled stránky s mapou je zobrazen na obrázku \ref{mapPagePreview}. Základní zobrazení je rozděleno na pravou a levou část.
+    \paragraph{Levá část} zobrazuje mapu s ovládacími prvky. V levém horním rohu je textový vstup pro vyhledání místa na mapě podle textu. Levý spodní roh obsahuje posuvník znázorňující časovou osu, který umožňuje omezení zobrazených míst a příspěvků podle historického data fotografií, které obsahují. V pravém spodním rohu jsou tlačítka pro přiblížení a oddálení mapy, přesunutí na aktuální polohu zařázení a menu pro změnu vzhledu mapy. Možné vzhledy mapy jsou světlý, tmavý a satelitní. V pravém horním rohu se nachází tlačítko umožňující skrýt levou část a zobrazit mapu přes celou obrazovku.
+    \paragraph{Pravá část} zobrazuje všechna místa, která se nacházejí v oblasti mapy a která obsahují příspěvky s historickým datem odpovídajícím filtrování podle historického data. Toto zobrazení lze přepnout na zobrazení všech příspěvků, které splňují zmíněná kritéria. Při výběru místa se namísto seznamu míst otevře detail vybraného místa obsahující jeho náhled, název, popisek a seznam příspěvků obsahující fotografie daného místa.
+    \subsection{Lokalizace klienta} Pokud parametry URL adresy neobsahují souřadnice na kterých by měla být mapa zobrazena, stránka si vyžádá přístup ke geolokaci. Pokud je přístup udělen, automaticky je lokace mapy nastavena na souřadnice poskytnuté prohlížečem.
+    \subsection{Ukládání pozice na mapě do parametrů URL adresy}
+    Při každém pohybu po mapě jsou souřadnice aktuální pozice mapy uloženy do paramterů URL adresy. Díky tomu při obnovení stránky pozice mapy zůstává nezměněna. Tato funkcionalita byla inspirována např. Mapy.cz a Google maps. Toto také umožňuje uživateli sdílet aktuální zobrazení mapy zkopírováním URL adresy.
+    \subsection{Načítání míst na mapě}
+    Vzhledem k tomu že množství míst na mapě není teoreticky nijak omezeno, musí být načítána postupně. Pokud by ale byla načítána nová místa při každém pohybu mapa by byla zasekaná a z toho důvodu téměř nepoužitelná (kvůli množství dotazů na API). Tento problém byl vyřešen tím, že dotaz na API je odeslán po dokončení pohybu. Pro zmenšení objemu přenesených dat každý takový požadavek obsahuje seznam míst, která byla již dříve načtena a nacházejí se v zobrazené oblasti, tato místa jsou vynechána z odpovědi serveru.
+    \subsection{Zobrazení míst na mapě}
+    Místo na mapě je zobrazeno jako fotografie v kruhu, nacházející se na souřadnicích daného místa viz. obrázek \ref{figure:onePlaceOnMap}. Pro optimalizaci mapy jsou vykreslovány pouze místa nacházející se v zobrazené oblasti.
     \subsection{Seskupování bodů}
-    Místa na mapě jsou zobrazena jako ikony s fotografií místa. Pokud by bylo mnoho bodů na malém prostoru, mohly by se nevzájem překrývat, snižovat přehlednost a zpomalovat pohyb po mapě. Proto je použit tzv. clustering (shlukování více bodů), místo těchto bodů je pak vykreslen pouze jeden, který se nachází na souřadnicích rovnajících se průměru souřadnic všech bodů, které cluster obsahuje. Pro rozhodnutí, který obrázek bude na mapě použit jako ikona jsou porovnány vzdálenosti všech bodů v clusteru od středu clusteru, a jako náhled je použit náhled místa, které je nejblíže středu clusteru. V pravém vrchním rohu ikony je poté číslo vyjadřující počet míst seskupených v clusteru.
+    Při oddálení mapy by se v případě většího počtu zobrazených míst mohla daná místa překrývat, snižovat přehlednost mapy a zpomalovat pohyb po mapě. Z toho důvodu je použit tzv. clustering (shlukování více bodů), místo těchto bodů je následně vykreslen pouze jeden, který se nachází na souřadnicích průměru souřadnic všech bodů, které cluster obsahuje viz obrázek \ref{figure:clusterOnMap}. Pro rozhodnutí, který obrázek bude na mapě zvolen jako náhled clusteru jsou porovnány vzdálenosti všech míst, která cluster obsahuje od středu clusteru. jako náhled je použit náhled místa, které je nejblíže středu clusteru. V pravém vrchním rohu náhledu je poté zobrazeno číslo vyjadřující počet míst seskupených v clusteru. Při kliknutí na náhled clusteru je mapa přiblížena tak aby bylo zobrazeno co nejvíce míst jako samostatná místa a ne clustery.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=4cm]{images/places_cluster.png}
-	\caption{Zobrazení seskupení několika míst na mapě}
+	\caption{Zobrazení seskupení několika míst na mapě}\label{figure:clusterOnMap}
 \end{figure}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=4cm]{images/place.png}
-	\caption{Zobrazení jednoho místa na mapě}
+	\caption{Zobrazení jednoho místa na mapě}\label{figure:onePlaceOnMap}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/map_page.png}
-	\caption{Stránka s mapou}
+	\caption{Stránka s mapou}\label{figure:mapPagePreview}
 \end{figure}
 
-\chapter{Zprovoznění}
-\section{Docker}
-Docker je soubor platforem a služeb poskytujících virtualizaci na úrovni operačního systému pro spouštění softwaru v balíčcích nazývané kontejnery. Docker zajišťuje že programy a aplikace vždy poběží ve stejném prostředí nezávisle na zařízení nebo operačním systému. Jednoduchost spuštění kontejneru usnadňuje nasazení aplikace na server. Celý projekt včetně databáze a úložiště je pak možné spustit jedním skriptem bez nutnosti nastavování.
+
 
 \chapter{Vývoj}
+\section{Nasazení na server}
+\subsection{Docker}
+Docker je soubor platforem a služeb poskytujících virtualizaci na úrovni operačního systému pro spouštění softwaru v balíčcích nazývané kontejnery. Docker zajišťuje že programy a aplikace vždy poběží ve stejném prostředí nezávisle na zařízení nebo operačním systému. Jednoduchost spuštění kontejneru usnadňuje nasazení aplikace na server. Celý projekt včetně databáze a úložiště je pak možné spustit jedním skriptem bez nutnosti nastavování.
+\subsection{Hosting}
+Jako hosting je označována služba, na kterou lze nahrát svou webovou aplikaci, která následně bude přístupná na internetu. Pro hostování aplikace byla zvolena platforma DigitalOcean, z důvodu jednoduchosti administrátorského rozhraní (narozdíl od např. AWS) a ceně. Zároveň nabízí funkce jako například automatické naklonování aplikace z Git repozitáře a následné spuštění na serveru při změně kódu. Umožňuje také pronajmutí virtuálního počítače, na kterém lze následně aplikaci spustit například v Docker kontejneru.
+\section{Integrované vývojové prostředí}
+Jako vývojářské prostředí je označován software určená k psaní kódu, zpravidla poskytující také nástroje pro analýzu napsaného kódu jako je například našeptávání, nebo automatické formátování. Při vývoji byl použit Gitpod. Jedná se o cloudovou platformu, která umožňuje pomocí konfiguračního souboru spustit předpřipravené prostředí (včetně databáze a IPFS nodu). Výhodou cloudové platformy je například možnost práce i na zařízeních s velmi nízkým výkonem, nebo synchronizace postupu napříč zařízeními. \cite{gitpod}\cite{whatIsIDE}
+
 \section{Verzování}
 Git je software pro sledování změn v souborech, které jsou součástí repozitáře. Git poskytuje možnost se kdykoliv vrátit do jakékoliv verze projektu. Git lze také použít při kolaboraci více programátorů, nebo pro synchronizaci kódu.
 \section{Testování}
@@ -331,7 +363,12 @@ Git je software pro sledování změn v souborech, které jsou součástí repoz
 \subsection{Github actions} 
 
 
+%% obrázky 
+\listoffigures
+
 %% Citace
 \input{citations.tex} 
+
+
 
 \end{document}
