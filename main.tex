@@ -48,9 +48,9 @@
 \renewcommand{\headrulewidth}{1pt}
 
 \newenvironment{propertiesItemize}{
-  \begin{itemize}  \begin{itemize}{ 
+\begin{itemize}{ 
   }}
-  {\end{itemize}\end{itemize}}
+  {\end{itemize}}
 
 \usepackage{booktabs}
 
@@ -91,8 +91,12 @@
 
 \chapter{Pojmy}
 \subsection{NSFW}
-Zkratka vycházející z anglického "Not Safe For Work" (nevhodné pro práci), zpravidla se takto označují příspěvky obsahující nahotu, násilí a tudíž by se jim mělo vyhnout v profesionálním prostředí.
-\subsection{Garbage collection} je správa paměti, Stará se o uvolnění nepoužívaných úseků v paměti které nejsou procesem využívány
+Zkratka vycházející z anglického "Not Safe For Work" (nevhodné pro práci), zpravidla se takto označují příspěvky obsahující nahotu, násilí a tudíž by se jim mělo vyhnout v profesionálním prostředí. \cite{NSFW}
+
+\subsection{Garbage collection} je správa paměti, Stará se o uvolnění nepoužívaných úseků v paměti které nejsou procesem využívány \cite{GarbageCollection}
+
+\subsection{Runtime environment} je skupina software umožňující spuštění programu v reálném čase, obvykle implementuje základních funkce jako je například výpis textu nebo připojení k internetu \cite{whatIsRuntimeEnvironment}
+
 
 \chapter{Úvod}
 \section{Cíl}
@@ -117,60 +121,60 @@ sdílí historické fotky. Na rozdíl od Histories zde není téměř žádná m
 Historypin je open-source platforma fungující jako archiv historických fotografií.Umožňuje vyhledávání míst na mapě, filtrování příspěvků podle data vzniku, nebo například vytváření kolekcí. Obashuje velké množství příspěvků, což ale vede k pomalému načítání stránky a dat na mapě. Zvolený layout snižuje přehlednost a zhoršuje orientaci a navigaci na stránce.
 \subsection{Facebook}
 Primární účel Facebooku je sdílení aktuálních příspěvků. Neobsahuje téměř žádné možnosti filtrování či geolokaci příspěvků. 
-\
+
 \chapter{Použité technologie}
 \section{Sdílené technologie pro frontend i backend}
 \subsection{Typescript}
-Typescript je nadstavba na Javascript, která umožňuje statické typování. Všechen kód napsaný v Javascriptu je validním také v Typescriptu. 
+Typescript je nadstavba na Javascript, která umožňuje statické typování \cite{DynamicVsStaticTyping}. Všechen kód napsaný v Javascriptu je validním také v Typescriptu. \cite{whatIsTypescript}\cite{typescriptForTheNewProgrammer}
 \subsection{NPM}
-NPM je nástroj pro správu Javascript knihoven. Umožňuje jednoduchou instalaci knihoven použitých v projektu. V konfiguračním souboru lze nastavit nutnost použití konkrétní verze knihovny, což zajišťuje stejnou funkčnost napříč různými zařízeními. 
+NPM je nástroj pro správu Javascript knihoven. Umožňuje jednoduchou instalaci knihoven použitých v projektu. V konfiguračním souboru lze nastavit nutnost použití konkrétní verze knihovny, což zajišťuje stejnou funkčnost napříč různými zařízeními. \cite{whatIsNpmW3}\cite{aboutNpm}
 \subsection{GraphQL}
-GraphQL je specifikace dotazovacího jazyka pro tvorbu API.(wikipedia) Nejpoužívanější alternativou pro GraphQL je REST. Oproti REST je u GraphQL výhodou že klient v requestu specifikuje data která chce aby byla vrácena ze serveru. Tímto je eliminován přenos nepotřebných dat a tím také celý přenos urychlen. Zároveň se klient dotazuje vždy na stejný endpoint, mění se jen obsah requestu. GraphQL je typované, což znamená že musí být předem jasné typ vrácených dat.
+GraphQL je dotazovací jazyk pro API \cite{graphqlIntroduction}. Nejpoužívanější alternativou pro GraphQL je REST. Oproti REST je u GraphQL výhodou že klient v requestu specifikuje data která chce aby byla vrácena ze serveru. Tímto je eliminován přenos nepotřebných dat a tím také celý přenos urychlen. Zároveň se klient dotazuje vždy na stejný endpoint, mění se pouze obsah requestu. GraphQL je typované \cite{graphqlTypes}, což znamená že musí být předem jasné typ vrácených dat. \cite{restApiRedHat}\cite{whatIsApiAws}
 
 
 % FRONTEND %%%%%%% 
 \section{Technologie pro frontend}
 \subsection{React}
-React je Javascriptová knihovna pro tvorbu webových stránek zjednodušující práci s měnícími se daty. Kód je dělen na jednotlivé celky nazývané komponenty. Komponenty mohou být v kódu používány vícekrát, což vede k zjednodušení kódu.
+React je Javascriptová knihovna pro tvorbu webových stránek zjednodušující práci s měnícími se daty. Kód je dělen na jednotlivé celky nazývané komponenty \cite{reactComponentsAndProps}. Komponenty mohou být v kódu používány vícekrát, což vede k zjednodušení a zefektivnění psaní kódu. \cite{gettingStartedReact}
 \subsection{Next.js}
-Next.js je React framework zaměřený na zlepšení uživatelské i vývojářské zkušenosti. Hlavní výhodou Next.js je server side rendering, což znamená že se data načtou již na serveru a klientovi se posílá načtená stránka, na rozdíl od klasického Reactu, kde se klientovi pošle prázdná stránka a až poté se u klienta načítají data. Server side rendering zároveň zlepšuje skóre SEO. Next.js disponuje vlastními React komponenty, například Link, který zajišťuje prefetchování odkazů nebo Image, který optimalizuje způsob načítání obrázků. Next.js obsahuje také file system rounting, což znamená že není nutné nastavovat React router.
+Next.js je React framework zaměřený na zlepšení uživatelské i vývojářské zkušenosti. Hlavní výhodou Next.js je server side rendering \cite{whatIsSSR}, což znamená že se data načtou již na serveru a klientovi se posílá načtená stránka, na rozdíl od klasického Reactu, kde se klientovi pošle prázdná stránka a až poté se u klienta načítají data. Server side rendering zároveň zlepšuje skóre SEO \cite{whatIsSEO}. Next.js disponuje vlastními React komponenty, například Link, který zajišťuje prefetchování odkazů, nebo Image, který optimalizuje způsob načítání obrázků. Next.js obsahuje také file system rounting, což znamená že není nutné nastavovat React router. \cite{nextGetStarted}
 \subsection{Tailwind}
-Tailwind je open-source CSS framework, který umožňuje rychlejší a přehlednější psaní stylů stránek pomocí předvytvořených tříd. Tailwind neobsahuje žádné předvytvořené prvky.
+Tailwind je open-source CSS framework, který umožňuje rychlejší a přehlednější psaní stylů stránek pomocí předvytvořených tříd. Tailwind neobsahuje žádné předvytvořené prvky.\cite{tailwindDocumentation}
 \subsection{GraphQL code generator}
-GraphQL code generator je knihovna, která umožňuje generování Typescript typů z GraphQL schémata. Díky tomu není nutné vytvářet zvlášť nové typy pro GraphQL response.
+GraphQL code generator je knihovna, která umožňuje generování Typescript typů z GraphQL schématu. Díky tomu není nutné vytvářet zvlášť nové typy pro GraphQL response. \cite{graphqlCodeGeneratorDocs}
 % BACKEND %%%%%%% 
 \section{tachnologie pro backend}
 \subsection{Nodejs}
-Node js je runtime prostředí pro spouštění Javascriptu mimo prohlížeč. Hlavním důvodem pro použití bylo použití stejného programovacího jazyka pro backend i frontend, což umožňuje znovuvyužití některých funkcí (např. validace).
+Node js je runtime environment pro spouštění Javascriptu mimo prohlížeč. Hlavním důvodem pro použití bylo použití stejného programovacího jazyka pro backend i frontend, což umožňuje opakované využívání některých funkcí (např. validace). \cite{aboutNodeJS}
  
 \chapter{Úložiště dat}
     \section{Úložiště souborů}
         \subsection{Protokol IPFS}\label{subsection:IPFS}
-        Inter Planetary File System (Meziplanetární souborový systém) je peer-to-peer trustless protokol pro ukládání a sdílení souborů v distribuovaném souborovém systému.
+        Inter Planetary File System (Meziplanetární souborový systém) je peer-to-peer trustless protokol pro ukládání a sdílení souborů v distribuovaném souborovém systému. \cite{IPFSDocs}
         \subsubsection{Decentralizace}
-            Decentralizované protokoly nemají vlastníka a jsou utvářeny všemi uživateli společně. Tento koncept často bývá spojen s konceptem trustless, který umožňuje každému uživateli kdykoliv ověřit pravdivost obsahu, v tomto případě vygenerováním hashe a následným porovnáním dvou hashů, čímž je zabráňeno cenzuře. Decentralizace umožňuje rychlejší načtení obsahu, pokud je v blízkosti node s uloženým obsahem, nebo načtení obsahu bez nutnosti přístupu k celosvětové síti, pokud je v lokální síti node, který obsah poskytuje.
+            Decentralizované protokoly nemají vlastníka a jsou utvářeny všemi uživateli společně. Tento koncept často bývá spojen s konceptem trustless, který umožňuje každému uživateli kdykoliv ověřit pravdivost obsahu, v tomto případě vygenerováním hashe a následným porovnáním dvou hashů, čímž je zabráňeno cenzuře \cite{decentralizedVsTrustless}. Decentralizace umožňuje rychlejší načtení obsahu, pokud je v blízkosti node s uloženým obsahem, nebo načtení obsahu bez nutnosti přístupu k celosvětové síti, pokud je v lokální síti node, který obsah poskytuje. \cite{decentralizedAndDistributedNetworks}\cite{decentralizedAndTrustless}
         \subsubsection{Zpracování obsahu}
             \paragraph{Nahrávání obshu}
-            Při ukládání souboru do IPFS je pomocí algoritmu sha-256 z obsahu souboru vygenerován hash, který slouží jako unikátní identifikátor souboru (CID) pomocí kterého je následně soubor přístupný. Vygenerovaný hash má vždy stejnou délku nezávisle na velikosti daného souboru a při nahrání souboru se shodným obsahem z jakéhokoliv zařízení bude vždy hash totožný, čímž je zajištěna neměnnost obsahu. Nahrané soubory si můžou jednotlivé nody připnout, což je ochrání před garbage collection. Po připnutí je soubor uložen do úložiště nodu a dál poskytován síti. Existují tzv. pinning services, které umožňují pronajmutí nodu, s přístupem k vysokorychlostnímu internetu a je spravován poskytovatelem. V projektu byl použit pinning service Infura. 
-            \paragraph{Přístup k obsahu} K obsahu je následně možné přistupovat skrz veřejnou gateway (např. ipfs.io, nebo cf-ipfs.com), nebo skrz gateway nodu, kde jsou připnuté soubory, díky čemuž není nutné vyhledávat nejbližší node poskytující obsah, což celý proces urychluje.
+            Při ukládání souboru do IPFS je pomocí algoritmu sha-256 z obsahu souboru vygenerován hash, který slouží jako unikátní identifikátor souboru (CID) pomocí kterého je následně soubor přístupný \cite{IPFScontentAddressing}. Vygenerovaný hash má vždy stejnou délku nezávisle na velikosti daného souboru a při nahrání souboru se shodným obsahem z jakéhokoliv zařízení bude vždy hash totožný, čímž je zajištěna neměnnost obsahu. Nahrané soubory si můžou jednotlivé nody připnout, což je ochrání před garbage collection \cite{IPFSPersistence}. Po připnutí je soubor uložen do úložiště nodu a dál poskytován síti. Existují tzv. pinning services, které umožňují pronajmutí nodu, s přístupem k vysokorychlostnímu internetu a je spravován poskytovatelem. V projektu byl použit pinning service Infura. 
+            \paragraph{Přístup k obsahu} K obsahu je následně možné přistupovat skrz veřejnou gateway (např. ipfs.io, nebo cf-ipfs.com), nebo skrz gateway nodu, kde jsou připnuté soubory, díky čemuž není nutné vyhledávat nejbližší node poskytující obsah, což celý proces urychluje. \cite{IPFSgateways}
         \subsection{Porovnání IPFS a S3}
             Soubory v IPFS jsou adresovány na základě obsahu na rozdíl od S3, kde jsou sobory adresovány na základě lokace (to umožňuje nahrávat soubory do složek). IPFS neumožňuje nastavení oprávnění k přístupu k souboru, tzn. pokud zná uživatel CID souboru, který je v síti dostupný, nemůže mu být zabráněno v přístupu k obsahu souboru.
 
     \section{Databáze}
     \subsection{Definice grafové databáze}
         Hlavním rozdílem grafových databází oproti relačním databázím je způsob ukládání dat. 
-        Data v grafové databázi jsou rozdělena na uzly a hrany. Uzly představují entity a hrany vztahy znázorňují vztahy mezi entitami. Hrana vždy spojuje dva uzly.
+        Data v grafové databázi jsou rozdělena na uzly a hrany \cite{graphenTheorie}. Uzly představují entity a hrany vztahy znázorňují vztahy mezi entitami. Hrana vždy spojuje dva uzly.
         Uzly i hrany mohou mít své vlastnosti. Grafová databáze byla zvolena, protože aplikace generuje mnoho na sobě závislých dat, která
-        lze následně využít u algoritmů pro doporučování příspěvků a ostatních uživatelů v reálném čase. Grafové databáze jsou často využity pro analýzu a zpracování dat.
+        lze následně využít u algoritmů pro doporučování příspěvků a ostatních uživatelů v reálném čase. Grafové databáze jsou často využity pro analýzu a zpracování dat. \cite{graphDatabasesIntroduction}\cite{graphAlgorithms}
     \subsection{Neo4j}
-        V projektu je použita databáze Neo4j. Databáze byla zvolena zejména kvůli její aktivní komunitě a detailní dokumentaci. Neo4j je používána také některými světovými organizacemi např. NASA, Airbnb, Lyft a Ebay. Neo4j splňuje zásady ACID, což znamená že změny jsou uloženy všechny najednou po dokončení transakce, v případě chyby nejsou žádné změněny uloženy. Tím je garantovaná stálost dat v databázi.
+        V projektu je použita databáze Neo4j. Databáze byla zvolena zejména kvůli její aktivní komunitě a detailní dokumentaci. Neo4j je používána také některými světovými organizacemi např. NASA, Airbnb, Lyft a Ebay. Neo4j splňuje zásady ACID, což znamená že změny jsou uloženy všechny najednou po dokončení transakce, v případě chyby nejsou žádné změněny uloženy \cite{ACIDRules}. Tím je garantovaná stálost dat v databázi. \cite{aboutNeo4j}
     \subsection{Constraints}
         Constraints je sada omezení při práci s daty. Lze omezovat na základě vlastností vrcholu (např. nelze vytvořit vrchol \uv{user} bez vlastnosti \uv{username}), na základě hran (např. nemůže existovat vrchol \uv{post} bez hrany \uv{created} spojující ho s uživatelem, nemůže existovat hrana sleduje mezi vrcholy \uv{user} a \uv{post}), na základě datových typů (např. vlastnost \uv{email} vrcholu \uv{user} musí být vždy typu string)
     \subsection{Dotazovací jazyk Cypher Query Language}
-        Cypher je výchozí dotazovací jazyk pro Neo4j. Syntaxí je podobý jazyku SQL.
+        Cypher je výchozí dotazovací jazyk pro Neo4j. Syntaxí je podobý jazyku SQL. \cite{CypherQL}
         
     \subsection{Datová struktura - seznam entit a jejich relace}
-        Podle konvencí Neo4j jsou všechny vrcholy pojmenovány s velkým písmenem na začátku a hrany se všemi písmeny velkými, pokud se jedná o víceslovný název, jednotlivá slova jsou oddělena podtržítkem.
+        Podle konvencí Neo4j jsou všechny vrcholy pojmenovány s velkým písmenem na začátku a hrany se všemi písmeny velkými, pokud se jedná o víceslovný název, jednotlivá slova jsou oddělena podtržítkem. \cite{Neo4jNamingRules}
             Všechny vrcholy mají vlastnosti createdAt obsahující čas jejich vytvoření a id (unikátní identifikátor).
 
     	            \subsubsection{User (uživatel)}  Má relaci \uv{CREATED} s každou entitou, kterou vytvořil (např. \uv{Comment}, \uv{Post}, \uv{Collection}).
@@ -207,7 +211,7 @@ Node js je runtime prostředí pro spouštění Javascriptu mimo prohlížeč. H
     	            \subsubsection{Place (místo)} Každé místo na mapě je uloženo jako entita \uv{Place}. Může mít relaci \uv{HAS\_PREVIEW} s enitou \uv{Photo}, všechny příspěvky s fotografií tohoto místa s ním mají relaci \uv{IS\_LOCATED}.
     	             \subparagraph{Vlastnosti:}  
                            \begin{propertiesItemize}
-                                \item \textbf{location} - obsahuje souřadnice uložené jako typ point 
+                                \item \textbf{location} - obsahuje souřadnice uložené jako typ point \cite{Neo4jSparialFunctions}
                                 \item \textbf{name} - název místa, společně s vlastností description může být změněno pouze uživateli s administrátorským oprávněním
                                 \item \textbf{description} - popis místa
                                 \item \textbf{icon} - významná místa mohou mít vlastní ikonu, která se poté zobrazuje na mapě, tato vlastnost obsahuje IPFS hash souboru s ikonou
@@ -258,7 +262,7 @@ Pro kontrolu NSFW obsahu autor použil API třetí strany (nsfw iamge classifica
 \subsubsection{Nahrání a validace souboru} Maximální velikost nahraného obrázku je 20MB.  Po nahrání je na backendu ověřeno, zda se jedná o obrázek (např. PNG, JPG, GIF), poté je převeden do formátu JPG. Pokud nejdelší strana obrázku přesahuje 2560px, obrázek je zmenšen při zachování poměru stran tak, aby jeho nejdelší strana měla 2560px a následně nahrán na IPFS. Následně je vygenerován blurhash, který je uložen do databze.
 \subsection{Optimalizace}
 \subsubsection{Použití komponentu Next image}
-Next.js poskytuje React komponentu Image, která umožňuje využívat optimalizaci obrázků (tzn. rychlejší načtení na straně klienta). V argumentech komponenty lze nastavit kvalitu obrázku a tím zmenšit datový objem nutný doručit klientovi. Zároveň obrázek není přenášen v plném rozlišení, ale je přizpůsobeno velikosti, ve které je obrázek vykreslen na obrazovce. Optimalizované obrázky jsou cachován na serveru, díky čemuž jsou dále poskytované instantně.
+Next.js poskytuje React komponentu Image, která umožňuje využívat optimalizaci obrázků (tzn. rychlejší načtení na straně klienta). V argumentech komponenty lze nastavit kvalitu obrázku a tím zmenšit datový objem nutný doručit klientovi. Zároveň obrázek není přenášen v plném rozlišení, ale je přizpůsobeno velikosti, ve které je obrázek vykreslen na obrazovce. Optimalizované obrázky jsou cachován na serveru, díky čemuž jsou dále poskytované instantně. \cite{nextImage}
 \subsubsection{Porovnání AVIF a WEBp}
 AVIF je moderní formát obrázků. Poprvé byl použit v roce 2019 Netflixem a od roku 2021 je podporován prohlížeči. Oproti formátu WEBp zpracování obrázku trvá přibližně o 20\% déle, ale poskytuje o 20\% efektivnější kompresi.
 
@@ -266,7 +270,7 @@ AVIF je moderní formát obrázků. Poprvé byl použit v roce 2019 Netflixem a 
 \subsection{Blurhash}\label{subsection:blurhash}
 Blurhash je formát vyvinut a využíván společností Wolt. Umožňuje vygenerování krátkého řetězce znaků z fotogrfie.
 Řetězec znaků lze následně vykreslit jako rozmazanou verzi fotografie, která je následně vykreslena na místě fotografie před jejím načtením.
-Tento detail zajišťuje lepší uživatelskou zkušenost a pocit rychlejšího načítání fotografií.
+Tento detail zajišťuje lepší uživatelskou zkušenost a pocit rychlejšího načítání fotografií. \cite{blurhash}\cite{blurhashWoltBlog}
 
 \begin{figure}[h]
 	\centering
@@ -304,7 +308,7 @@ Každý příspěvek má datum kdy byl vytvořen a historické datum. Historick�
 	\caption{Stránka s mapou}
 \end{figure}
 
-\chapter{Nasazení na server}
+\chapter{Zprovoznění}
 \section{Docker}
 Docker je soubor platforem a služeb poskytujících virtualizaci na úrovni operačního systému pro spouštění softwaru v balíčcích nazývané kontejnery. Docker zajišťuje že programy a aplikace vždy poběží ve stejném prostředí nezávisle na zařízení nebo operačním systému. Jednoduchost spuštění kontejneru usnadňuje nasazení aplikace na server. Celý projekt včetně databáze a úložiště je pak možné spustit jedním skriptem bez nutnosti nastavování.
 
@@ -328,9 +332,6 @@ Git je software pro sledování změn v souborech, které jsou součástí repoz
 
 
 %% Citace
-\input{citations.tex}
-
-%% Seznam literatury
-\input{bibliography.tex} 
+\input{citations.tex} 
 
 \end{document}
