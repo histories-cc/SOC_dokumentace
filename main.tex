@@ -102,15 +102,12 @@ Zkratka vycházející z anglického "Not Safe For Work" (nevhodné pro práci),
 \section{Cíl}
 Cílem projektu bylo vytvořit platformu pro sdílení historických fotografií
 s informací o místě a čase pořízení. Jednou z hlavních funkcí aplikace je možnost
-zobrazení fotografií na mapě včetně možnosti filtrování podle časové osy. Prohlížet 
-příspěvky mají možnost všichni včetně neregistrovaných uživatelů. Registrovaní 
-uživatelé dále mohou přidávat nové příspěvky a diskutovat s ostatními uživateli v
-komentářové sekci. Zároveň existují administrátorské funkce, které umožňují mazat
-nevhodný obsah a přidávat detaily míst (např. název místa, fotku, ikonu na mapě, atd.).
+zobrazení fotografií na mapě včetně možnosti filtrování podle časové osy. Prohlížet příspěvky mají možnost všichni včetně neregistrovaných uživatelů. Registrovaní uživatelé dále mohou přidávat nové příspěvky a diskutovat s ostatními uživateli v
+komentářové sekci. Zároveň existují administrátorské funkce, které umožňující  moderovat obsah a přidávat rozšiřující informace.
 
 \section{Motivace}
-Motivací projektu byla Facebooková skupina Pardubice v běhu času\cite{PardubiceVBehuCasuFB}, kde lidé 
-sdílí historické fotky. Na rozdíl od Histories zde není téměř žádná možnost filtrování či 
+Motivací projektu byla Facebooková skupina Pardubice v běhu času\cite{PardubiceVBehuCasuFB}, kde lidé
+sdílí historické fotky. Na rozdíl od Histories zde není téměř žádná možnost filtrování či
 řazení ani zobrazení příspěvků na mapě.
 
 
@@ -118,214 +115,231 @@ sdílí historické fotky. Na rozdíl od Histories zde není téměř žádná m
 
 \section{Existující řešení}
 \subsection{Historypin}
-Historypin je open-source platforma fungující jako archiv historických fotografií.Umožňuje vyhledávání míst na mapě, filtrování příspěvků podle data vzniku, nebo například vytváření kolekcí. Obashuje velké množství příspěvků, což ale vede k pomalému načítání stránky a dat na mapě. Zvolený layout snižuje přehlednost a zhoršuje orientaci a navigaci na stránce.
+Historypin je open-source platforma fungující jako archiv historických fotografií.Umožňuje vyhledávání míst na mapě, filtrování příspěvků podle data originální fotografie, nebo např. vytváření kolekcí. Obsahuje velké množství příspěvků, což kvůli špatně optimalizaci stránky vede k pomalému načítání dat a nepřehlednosti mapy. Zvolený rozložení snižuje přehlednost a zhoršuje orientaci a navigaci na stránce.
 \subsection{Facebook}
-Primární účel Facebooku je sdílení aktuálních příspěvků. Neobsahuje téměř žádné možnosti filtrování či geolokaci příspěvků. 
+Primární účel Facebooku je sdílení aktuálních příspěvků. Neobsahuje téměř žádné možnosti filtrování či geolokaci příspěvků.
 
 \chapter{Použité technologie}
-\section{Sdílené technologie pro frontend i backend}
+\section{Technologie použité na frontendu i na backendu}
 \subsection{Typescript}
-Typescript je nadstavba na Javascript, která umožňuje statické typování \cite{DynamicVsStaticTyping}. Všechen kód napsaný v Javascriptu je validním také v Typescriptu. \cite{whatIsTypescript}\cite{typescriptForTheNewProgrammer}
+Typescript je nadstavba na JavaScript, umožňující statické typování \cite{DynamicVsStaticTyping}. Veškerý kód napsaný v JavaScriptu je validním také v Typescriptu. \cite{whatIsTypescript}\cite{typescriptForTheNewProgrammer}
 \subsection{NPM}
-NPM je nástroj pro správu Javascript knihoven. Umožňuje jednoduchou instalaci knihoven použitých v projektu. V konfiguračním souboru lze nastavit nutnost použití konkrétní verze knihovny, což zajišťuje stejnou funkčnost napříč různými zařízeními. \cite{whatIsNpmW3}\cite{aboutNpm}
+NPM je největším registrem JavaScriptových balíčků (knihoven) sdílených komunitou. Umožňuje jednoduchou instalaci balíčků pomocí CLI (command line interface). Konfigurační soubor obsahuje seznam všech balíčků použitých v projektu včetně jejich verzí, což zamezuje chybám v kódu z důvodu odlišných verzí balíčků. \cite{whatIsNpmW3}\cite{aboutNpm}
+
 \subsection{GraphQL}
-GraphQL je dotazovací jazyk pro API \cite{graphqlIntroduction}. Nejpoužívanější alternativou pro GraphQL je REST. Oproti REST je u GraphQL výhodou že klient v requestu specifikuje data která chce aby byla vrácena ze serveru. Tímto je eliminován přenos nepotřebných dat a tím také celý přenos urychlen. Zároveň se klient dotazuje vždy na stejný endpoint, mění se pouze obsah requestu. GraphQL je typované \cite{graphqlTypes}, což znamená že musí být předem jasné typ vrácených dat. \cite{restApiRedHat}\cite{whatIsApiAws}
+GraphQL je dotazovací jazyk pro API \cite{graphqlIntroduction}. Nejpoužívanější alternativou pro GraphQL je REST. Oproti REST u GraphQL klient v requestu specifikuje požadovaná data, která jsou následně vrácena serverem. Tím je eliminován přenos nepotřebných, nebo duplicitních dat, čímž je celá operace urychlena. GraphQL je silně typované \cite{graphqlTypes}, což znamená že musí být předem stanovený typ vrácených dat. \cite{restApiRedHat}\cite{whatIsApiAws}
 
 
 % FRONTEND %%%%%%% 
 \section{Technologie pro frontend}
-Frontend je grafické rozhraní, které uživateli umožňuje komunikovat skrz API s backendem a ovládat aplikaci bez znalostí programování, pomocí grafického rozhraní. Tento pojem je nejčastěji používán právě ve spojení s webovými aplikacemi, ale za frontend lze označit také např. mobilní aplikaci. \cite{whatIsFrontend}
+Část webové stránky, se kterou uživatel přímo interaguje (klientská strana) je označována za frontend aplikace. Obsahuje všechny prvky, se kterými se uživatel dostává do kontaktu přímo (např. texty, obrázky, tlačítka atd.). Frontend uživateli umožňuje ovládat aplikaci bez znalosti programování, nebo hlubší znalosti technologií, na kterých je postavena. Za frontend lze označit také mobilní, nebo desktopové aplikace. \cite{whatIsFrontend}
+
 \subsection{React}
-React je Javascriptová knihovna pro tvorbu webových stránek zjednodušující práci s měnícími se daty. Kód je dělen na jednotlivé celky nazývané komponenty \cite{reactComponentsAndProps}. Komponenty mohou být v kódu používány vícekrát, což vede k zjednodušení a zefektivnění psaní kódu. \cite{gettingStartedReact}
+React je open-source JavaScriptová knihovna (občas je také označován za framework) využívaná na frontendu a pro tvorbu uživatelských rozhraní složených z komponentů viz \ref{subsubsection:reactComponents}. Komponenty jsou části kódu, které lze znovu používat čímž se předchází duplicitnímu kódu. Mezi hlavní funkce Reactu patří také state management a následné vykreslování DOMu (document object model). DOM je objektově orientovaná reprezentace webové stránky usnadňující její modifikaci.\cite{reactComponentsAndProps}. \cite{gettingStartedReact}
 \subsection{Next.js}
-Next.js je React framework zaměřený na zlepšení uživatelské i vývojářské zkušenosti. Hlavní výhodou Next.js je server side rendering \cite{whatIsSSR}, což znamená že se data načtou již na serveru a klientovi se posílá načtená stránka, na rozdíl od klasického Reactu, kde se klientovi pošle prázdná stránka a až poté se u klienta načítají data. Server side rendering zároveň zlepšuje skóre SEO \cite{whatIsSEO}. Next.js disponuje vlastními React komponenty, například Link, který zajišťuje prefetchování odkazů, nebo Image, který optimalizuje způsob načítání obrázků. Next.js obsahuje také file system rounting, což znamená že není nutné nastavovat React router. \cite{nextGetStarted}
+Next.js je React framework zaměřený na zlepšení uživatelské i vývojářské zkušenosti. Hlavní výhodou Next.js je SSR (server side rendering) \cite{whatIsSSR}, který zajišťuje načtení dat na serveru a následné poslání načtené stránky klientovy, na rozdíl od Reactu, kde je klientovi poslána prázdná stránka a až poté se načítají data. SSR zároveň zlepšuje skóre SEO \cite{whatIsSEO}. Next.js disponuje vlastními React komponenty, např. komponentou Link, která zajišťuje automatické prefetchování odkazů, nebo Image, která optimalizuje načítání obrázků viz \ref{subsubsection:nextImageComponent}. Prefetchování dovoluje prohlížeči na pozadí ukládat do cache data, která by uživatel mohl v blízké budoucnosti potřebovat. Jakmile uživatel klikne na link, obsah je načten instantně. Next.js obsahuje také file system rounting viz \ref{subsection:fileSystemRouting}. \cite{nextGetStarted}
 \subsection{Tailwind}
-Tailwind je open-source CSS framework, který umožňuje rychlejší a přehlednější psaní stylů stránek pomocí předvytvořených tříd. Tailwind neobsahuje žádné předvytvořené prvky.\cite{tailwindDocumentation}
+Tailwind je open-source CSS framework, který umožňuje rychlejší a přehlednější psaní kaskádových stylů pomocí předem vytvořených tříd. Tailwind neobsahuje žádné předvytvořené styly pro komponenty. \cite{tailwindDocumentation}
 \subsection{GraphQL code generator}
-GraphQL code generator je knihovna, která umožňuje generování Typescript typů z GraphQL schématu. Díky tomu není nutné vytvářet zvlášť nové typy pro GraphQL response. \cite{graphqlCodeGeneratorDocs}
+GraphQL code generator je knihovna, umožňující generování typů pro Typescript z GraphQL schématu. Díky tomu odpadá nutnost psát typy ručně, čímž je odstraněn jeden možný bod selhání. \cite{graphqlCodeGeneratorDocs}
 % BACKEND %%%%%%% 
-\section{tachnologie pro backend}
-Za backend je označována část kódu běžící na server, se kterou lze komunikovat pouze pomocí API. Tato část se stará o např. ověřování vstupů, rozesílání emailů a veškeré zápisy do databáze a manipulaci s daty
-\cite{whatIsFrontend}
-\subsection{Nodejs}
-Node js je runtime environment pro spouštění Javascriptu mimo prohlížeč. Hlavním důvodem pro použití bylo použití stejného programovacího jazyka pro backend i frontend, což umožňuje opakované využívání některých funkcí (např. validace). \cite{aboutNodeJS}
- 
+\section{technologie pro backend}
+Za backend je označována část aplikace běžící na serveru, se kterou lze komunikovat pouze pomocí API. Tato část se stará o např. ověřování vstupů, rozesílání emailů a veškeré zápisy do databáze a manipulaci s daty. Uživatel nemá přístup k této části aplikace.
+\cite{whatIsFrontend} %% (whatIsFrontend contains difference between frontend and backend)
+\subsection{Node.js}
+Node.js je runtime environment pro spouštění JavaScriptového kódu mimo prohlížeč. Hlavním důvodem výběru bylo použití stejného programovacího jazyka pro backend i frontend, což umožňuje opakované využívání některých funkcí (např. validace) a usnadňuje práci na projektu. \cite{aboutNodeJS}
+
 \chapter{Úložiště dat}
-    \section{Úložiště souborů}
-        \subsection{Protokol IPFS}\label{subsection:IPFS}
-        Inter Planetary File System (Meziplanetární souborový systém) je peer-to-peer trustless protokol pro ukládání a sdílení souborů v distribuovaném souborovém systému. \cite{IPFSDocs}
-        \subsubsection{Decentralizace}
-            Decentralizované protokoly nemají vlastníka a jsou utvářeny všemi uživateli společně. Tento koncept často bývá spojen s konceptem trustless, který umožňuje každému uživateli kdykoliv ověřit pravdivost obsahu, v tomto případě vygenerováním hashe a následným porovnáním dvou hashů, čímž je zabráňeno cenzuře \cite{decentralizedVsTrustless}. Decentralizace umožňuje rychlejší načtení obsahu, pokud je v blízkosti node s uloženým obsahem, nebo načtení obsahu bez nutnosti přístupu k celosvětové síti, pokud je v lokální síti node, který obsah poskytuje. \cite{decentralizedAndDistributedNetworks}\cite{decentralizedAndTrustless}
-        \subsubsection{Zpracování obsahu}
-            \paragraph{Nahrávání obshu}
-            Při ukládání souboru do IPFS je pomocí algoritmu sha-256 z obsahu souboru vygenerován hash, který slouží jako unikátní identifikátor souboru (CID) pomocí kterého je následně soubor přístupný \cite{IPFScontentAddressing}. Vygenerovaný hash má vždy stejnou délku nezávisle na velikosti daného souboru a při nahrání souboru se shodným obsahem z jakéhokoliv zařízení bude vždy hash totožný, čímž je zajištěna neměnnost obsahu. Nahrané soubory si můžou jednotlivé nody připnout, což je ochrání před garbage collection \cite{IPFSPersistence}. Po připnutí je soubor uložen do úložiště nodu a dál poskytován síti. Existují tzv. pinning services, které umožňují pronajmutí nodu, s přístupem k vysokorychlostnímu internetu a je spravován poskytovatelem. V projektu byl použit pinning service Infura. 
-            \paragraph{Přístup k obsahu} K obsahu je následně možné přistupovat skrz veřejnou gateway (např. ipfs.io, nebo cf-ipfs.com), nebo skrz gateway nodu, kde jsou připnuté soubory, díky čemuž není nutné vyhledávat nejbližší node poskytující obsah, což celý proces urychluje. \cite{IPFSgateways}
-        \subsection{Porovnání IPFS a S3}
-            Soubory v IPFS jsou adresovány na základě obsahu na rozdíl od S3, kde jsou sobory adresovány na základě lokace (to umožňuje nahrávat soubory do složek). IPFS neumožňuje nastavení oprávnění k přístupu k souboru, tzn. pokud zná uživatel CID souboru, který je v síti dostupný, nemůže mu být zabráněno v přístupu k obsahu souboru.
+\section{Úložiště souborů}
+\subsection{Protokol IPFS}\label{subsection:IPFS}
+Inter Planetary File System (meziplanetární souborový systém) je peer-to-peer trustless protokol pro ukládání a sdílení souborů v distribuovaném souborovém systému. \cite{IPFSDocs}
+\subsubsection{Decentralizace}
+Decentralizované protokoly nemají vlastníka a jsou utvářeny všemi uživateli společně. Tento koncept často bývá spojen s konceptem trustless, který umožňuje každému uživateli kdykoliv ověřit pravdivost obsahu (nemusí jen slepě důvěřovat ostatním uživatelům), v tomto případě k ověření dochází vygenerováním hashe přijatého souboru a následným porovnáním s očekávaným hashem, díky čemuž není možné obsah cenzurovat \cite{decentralizedVsTrustless}. Decentralizace umožňuje rychlejší načtení souboru, pokud se v blízkosti nachází node poskytující soubor, nebo načtení souboru bez nutnosti přístupu k celosvětové síti, pokud se node poskytující obsah nachází v lokální síti. \cite{decentralizedAndDistributedNetworks}\cite{decentralizedAndTrustless}
+\subsubsection{Zpracování obsahu}
+\paragraph{Nahrání souboru}
+Při nahrání souboru do IPFS je pomocí algoritmu sha-256 z obsahu souboru vygenerován hash, který slouží jako unikátní identifikátor souboru (CID - content identifier) pomocí kterého je následně soubor přístupný \cite{IPFScontentAddressing}. Vygenerovaný hash má vždy stejnou délku nezávisle na velikosti nahraného souboru a při nahrání souboru se shodným obsahem z jakéhokoliv zařízení bude vždy hash totožný, čímž je zamezeno ukládání duplicitního obsahu. Nahraný soubor si může jakýkoliv node připnout, což zabrání garbage collectoru před jeho smazáním \cite{IPFSPersistence}. Po připnutí je soubor uložen do lokálního úložiště nodu a dále poskytován síti. Existují tzv. pinning services, které umožňují pronajmutí nodu, spravovaného poskytovatelem s přístupem k vysokorychlostnímu internetu. V projektu byl použit pinning service Infura.
+\paragraph{Přístup k obsahu} je možný skrz veřejnou gateway (např. ipfs.io, nebo cf-ipfs.com), nebo skrz gateway nodu, kde jsou soubory připnuty. Přístup přes gateway určitého nodu umožňuje vynechat krok vyhledávání nejbližšího nodu poskytujícího soubor, čímž zrychluje proces získání dat. \cite{IPFSgateways}
+\subsection{Porovnání IPFS oproti S3}
+S3 je centralizované škálovatelné objektové úložiště dostupné přes webovou službu. Soubory v IPFS jsou adresovány na základě obsahu na rozdíl od S3, kde jsou sobory adresovány na základě lokace (což umožňuje nahrávat soubory do složek). IPFS na rozdíl od S3 neumožňuje nastavení oprávnění k přístupu k souboru, tzn. pokud zná uživatel CID souboru, který je v síti dostupný, nemůže mu být zabráněno v přístupu k tomuto souboru. \cite{whatIsS3}
 
-    \section{Databáze}
-    \subsection{Definice grafové databáze}
-        Hlavním rozdílem grafových databází oproti relačním databázím je způsob ukládání dat. 
-        Data v grafové databázi jsou rozdělena na uzly a hrany \cite{graphenTheorie}. Uzly představují entity a hrany vztahy znázorňují vztahy mezi entitami. Hrana vždy spojuje dva uzly.
-        Uzly i hrany mohou mít své vlastnosti. Grafová databáze byla zvolena, protože aplikace generuje mnoho na sobě závislých dat, která
-        lze následně využít u algoritmů pro doporučování příspěvků a ostatních uživatelů v reálném čase. Grafové databáze jsou často využity pro analýzu a zpracování dat. \cite{graphDatabasesIntroduction}\cite{graphAlgorithms}
-    \subsection{Neo4j}
-        V projektu je použita databáze Neo4j. Databáze byla zvolena zejména kvůli její aktivní komunitě a detailní dokumentaci. Neo4j je používána také některými světovými organizacemi např. NASA, Airbnb, Lyft a Ebay. Neo4j splňuje zásady ACID, což znamená že změny jsou uloženy všechny najednou po dokončení transakce, v případě chyby nejsou žádné změněny uloženy \cite{ACIDRules}. Tím je garantovaná stálost dat v databázi. \cite{aboutNeo4j}
-    \subsection{Constraints}
-        Constraints je sada omezení při práci s daty. Lze omezovat na základě vlastností vrcholu (např. nelze vytvořit vrchol \uv{user} bez vlastnosti \uv{username}), na základě hran (např. nemůže existovat vrchol \uv{post} bez hrany \uv{created} spojující ho s uživatelem, nemůže existovat hrana sleduje mezi vrcholy \uv{user} a \uv{post}), na základě datových typů (např. vlastnost \uv{email} vrcholu \uv{user} musí být vždy typu string)
-    \subsection{Dotazovací jazyk Cypher Query Language}
-        Cypher je výchozí dotazovací jazyk pro Neo4j. Syntaxí je podobý jazyku SQL. \cite{CypherQL}
-        
-    \subsection{Datová struktura - seznam entit a jejich relace}
-        Podle konvencí Neo4j jsou všechny vrcholy pojmenovány s velkým písmenem na začátku a hrany se všemi písmeny velkými, pokud se jedná o víceslovný název, jednotlivá slova jsou oddělena podtržítkem. \cite{Neo4jNamingRules}
-            Všechny vrcholy mají vlastnosti createdAt obsahující čas jejich vytvoření a id (unikátní identifikátor).
+\section{Databáze}
+Databáze je organizovaná kolekce strukturovaných data ukládána elektronicky v počítači, nebo na serveru (obvykle v cloudu). Databáze je obvykle ovládána pomocí DBMS (systém správy databází). K datům lze snadno přistupovat, spravovat je, upravovat, aktualizovat a vyhodnocovat je. Většina databází používá pro přístup k datům dotazovací jazyk (u relačních databází je to nejčastěji jazyk SQL). \cite{whatIsDatabase}
+\paragraph{ACID model} je důležitým konceptem v teorii databází. Skládá se ze čtyř pravidel která musí DBMS splňovat.
+\begin{itemize}
+    
 
-    	            \subsubsection{User (uživatel)}  Má relaci \uv{CREATED} s každou entitou, kterou vytvořil (např. \uv{Comment}, \uv{Post}, \uv{Collection}).
-                         \subparagraph{Vlastnosti:}  
-                           \begin{propertiesItemize}
-                                \item \textbf{username} (uživatelské jméno) - každé uživatelské jméno musí být unikátní bez ohledu na malá a velká písmena; může obsahovat pouze písmena bez diakritiky, čísla a podtržítka
-                                \item \textbf{email} - obsahuje unikátní email uživatele
-                                \item \textbf{firstName} - křestní jméno uživatele
-                                \item \textbf{lastName} - příjmení uživatele (tato vlastnost je nepovinná)
-                                \item \textbf{bio} - vlastní popisek uživatele
-                                \item \textbf{googleID} - je vyplněno pouze pokud použije uživatel registraci pomocá Google účtu, jedná se uživatelské id poskytnuté Google API 
-                                \item \textbf{verified} - pokud má hodnotu true, jedná se o ověřeného uživatele; uživatel je automaticky ověřený, pokud je zaregistrován pomocí Goolge účtu, jinak je nutné potvrdit ověřovací email; pokud uživatel neověří svůj účet do 3 dnů, bude smazán
-                                \item \textbf{passwordResetToken} (token pro reset hesla) - tato vlastnost je pouze u uživatelů, kteří zapomněli své heslo; token je z bezpečnostních důvodů platný pouze 24 hodin od vytvoření a je zaslán pomocí emailu
-                                \item \textbf{authorizationToken} (autorizační token) - je odeslán na uživatelem zadaný email a násleně použit při ověření uživatele
-                                \item \textbf{isAdmin} - pokud se jedná o administrátorský účet, je nastavená jako true
-                                \item \textbf{password} - ukládá hash hesla vygenerovaný pomocí algoritmu bcrypt
-                        \end{propertiesItemize}
+\item \textbf{Atomicity} (atomicita) stanovuje že při zápisu dat do databáze jsou zapsána buď všechna data, nebo žádná. Pokud selže jakákoliv část transakce, data jsou vrácena do stavu ve kterém byla před začátkem transakce. Toto chování musí být zachováno i při selhání DBMS, operačního systému, nebo hardwaru.
+\item \textbf{Consistency} (konzistence) zaručuje zapsání pouze platných dat. Pokud je provedena transakce, která porušuje pravidla konzistence databáze, je celá transakce vrácena zpět a databáze je obnovena do předchozího stavu, který je v souladu s těmito pravidly. Pokud je transakce provedena úspěšně, přivede databázi z jednoho stavu konzistentního s pravidly do nového stavu, který je rovněž konzistentní s pravidly.
+\item \textbf{Isolation} (izolace) vyžaduje, aby pokud probíhá více transakcí najednou, nebyly zároveň probíhající transakce vzájemně ovlivněny. Probíhající transakce nemůže přistupovat k mezidatům jiných probíhajících transakcí.
+\item \textbf{Durability} (trvanlivost / odolnost) zaručuje, že data z úspěšně provedené transakce nebudou ztracena. Trvanlivost je zajištěna pomocí zálohování databáze a transakčních protokolů, které usnadňují obnovení odevzdaných transakcí navzdory jakýmkoli následným selháním softwaru nebo hardwaru. \cite{whatIsACID}
+\end{itemize}
+\paragraph{Eventuální konzistence} je alternativa k ACID modelu. Využívá se primárně u distribuovaných nebo decentralizovaných databází za účelem dosažení vysoké dostupnosti. Transakce je u tohoto systému považována za úspěšnou při aktualizaci dat na většině nodů. Mezi takové databáze patří např. databáze Cassandra, nebo DynamoDB.
 
-    	            \subsubsection{Post (příspěvek)}  Může mít relaci \uv{BELONGS\_TO} s entitou \uv{Photo} a relaci \uv{IS\_LOCATED} s entitou \uv{Place}.
-                          \subparagraph{Vlastnosti:}
- \begin{propertiesItemize}
-                                \item \textbf{description} - uživatelem zadaný text příspěvku 
-                                \item \textbf{historické datum} - datum kdy byla historická fotografie pořízena podle formátu popsaného v \ref{section:historical_date}
+\subsection{Definice grafové databáze}
+Hlavním rozdílem grafových databází oproti relačním databázím je způsob ukládání dat.
+Data v grafové databázi jsou rozdělena na uzly a hrany \cite{graphenTheorie}. Uzly představují entity a hrany znázorňují vztahy mezi entitami (relace). Hrana vždy spojuje právě dva uzly.
+Uzly i hrany mohou mít vlastnosti. Grafová databáze byla zvolena, protože aplikace generuje mnoho na sobě vzájemně závislých dat, která
+lze následně vyhodnocovat a provádět na základě nich např. doporučování příspěvků v reálném čase. Grafové databáze jsou často využity právě pro analýzu a práci s daty. \cite{graphDatabasesIntroduction}\cite{graphAlgorithms}
+\subsection{Neo4j}
+V projektu je použita databáze Neo4j. Databáze byla zvolena zejména kvůli její aktivní komunitě a detailní dokumentaci. Neo4j je používána také některými světovými organizacemi např. NASA, Airbnb, Lyft a Ebay. Neo4j splňuje všechny zásady ACID, čímž je garantovaná stálost dat v databázi. \cite{aboutNeo4j}
+\subsection{Constraints}
+Constraints je sada omezení při práci s daty. Lze omezovat na základě vlastností vrcholu (např. nelze vytvořit entitu \uv{User} bez vlastnosti \uv{username}), na základě relací (např. nemůže existovat entita \uv{Post} bez relace \uv{CREATED} s entitou \uv{User}, nemůže existovat relace \uv{FOLLOW} mezi entitou \uv{User} a entitou \uv{post}), na základě datových typů (např. vlastnost \uv{email} entity \uv{User} musí vždy být typu string).
+
+\subsection{Dotazovací jazyk Cypher Query Language}
+Cypher je výchozí dotazovací jazyk pro Neo4j. Syntaxí je podobý jazyku SQL. Cypher Query Language je jedinečný, díky použití syntaxe typu ASCII-art (dotaz je vizuálně podobný vzoru, kterého se týká), pro uzly používá kulaté závorky a pro hrany šipky pro relace. Dotaz odpovídající všem uživatelům, kteří vytvořili alespoň jeden příspěvek by tedy vypadal takto: \uv{MATCH (:User)-[:CREATED]->(:Post)} \cite{CypherQL}
+
+\subsection{Datová struktura - seznam entit a jejich relace}
+Podle konvencí Neo4j jsou všechny vrcholy pojmenovány s velkým písmenem na začátku a hrany se všemi písmeny velkými, pokud se jedná o víceslovný název, jednotlivá slova jsou oddělena podtržítkem. \cite{Neo4jNamingRules}
+Všechny vrcholy mají vlastnosti createdAt obsahující čas jejich vytvoření a id (unikátní identifikátor).
+
+\subsubsection{User (uživatel)}  Má relaci \uv{CREATED} s každou entitou, kterou vytvořil (např. \uv{Comment}, \uv{Post}, \uv{Collection}). Může mít také relaci \uv{FOLLOW} s ostatními uživateli a relaci \uv{REPORT} s příspěvky, které nahlásil.
+\subparagraph{Vlastnosti:}
+\begin{propertiesItemize}
+	\item \textbf{username} (uživatelské jméno) - každé uživatelské jméno musí být unikátní bez ohledu na malá a velká písmena; může obsahovat pouze písmena bez diakritiky, čísla a podtržítka
+	\item \textbf{email} - obsahuje unikátní email uživatele
+	\item \textbf{firstName} - křestní jméno uživatele
+	\item \textbf{lastName} - příjmení uživatele (tato vlastnost je nepovinná)
+	\item \textbf{bio} - vlastní popisek uživatele
+	\item \textbf{googleID} - je vyplněno pouze pokud použije uživatel registraci pomocá Google účtu, jedná se uživatelské id poskytnuté Google API
+	\item \textbf{verified} - pokud má hodnotu true, jedná se o ověřeného uživatele; uživatel je automaticky ověřený, pokud je zaregistrován pomocí Goolge účtu, jinak je nutné potvrdit ověřovací email; pokud uživatel neověří svůj účet do 3 dnů, bude smazán
+	\item \textbf{passwordResetToken} (token pro reset hesla) - tato vlastnost je pouze u uživatelů, kteří zapomněli své heslo; token je z bezpečnostních důvodů platný pouze 24 hodin od vytvoření a je zaslán pomocí emailu
+	\item \textbf{authorizationToken} (autorizační token) - je odeslán na uživatelem zadaný email a násleně použit při ověření uživatele
+	\item \textbf{isAdmin} - pokud se jedná o administrátorský účet, je nastavená jako true
+	\item \textbf{password} - ukládá hash hesla vygenerovaný pomocí algoritmu bcrypt
 \end{propertiesItemize}
-    	            \subsubsection{Photo (fotografie)} Každý použitý obrázek je uložen jako entita \uv{Photo}.
-	                    \subparagraph{Vlastnosti:}  
-                           \begin{propertiesItemize}
-                                \item \textbf{index} - pokud příspěvek obshuje více obrázků, budou seřazeny vzestupně podle této vlastnosti
-                                \item \textbf{blurhash} \ref{subsection:blurhash} - obsahuje vygenerovaný řetězec znaků
-                                \item \textbf{hash} obsahuje unikátní identifikátor souboru viz. \ref{subsection:IPFS}
-                                \item \textbf{width} - šířka obrázku v pixelech, spolu s výškou (height) je použita pro lepší vykreslení blurhashe na frontendu 
-                                \item \textbf{height} - výška obrázku v pixelech
-                                \item \textbf{nsfw} - pokud se jedná od NSFW fotografii její hodnota je true; popis vyhodnocování fotografie je popsán v \ref{section:nsfw_filter}.
-                        \end{propertiesItemize}
-    	            \subsubsection{Place (místo)} Každé místo na mapě je uloženo jako entita \uv{Place}. Může mít relaci \uv{HAS\_PREVIEW} s enitou \uv{Photo}, všechny příspěvky s fotografií tohoto místa s ním mají relaci \uv{IS\_LOCATED}.
-    	             \subparagraph{Vlastnosti:}  
-                           \begin{propertiesItemize}
-                                \item \textbf{location} - obsahuje souřadnice uložené jako typ point \cite{Neo4jSparialFunctions}
-                                \item \textbf{name} - název místa, společně s vlastností description může být změněno pouze uživateli s administrátorským oprávněním
-                                \item \textbf{description} - popis místa
-                                \item \textbf{icon} - významná místa mohou mít vlastní ikonu, která se poté zobrazuje na mapě, tato vlastnost obsahuje IPFS hash souboru s ikonou
-                        \end{propertiesItemize}
-    	            \subsubsection{Comment (komentář)} Má relaci \uv{BELONGS\_TO} s entitou \uv{Post}.
-    	                        \subparagraph{Vlastnosti:}  
-                           \begin{propertiesItemize}
-                                \item \textbf{content} - samotný text komentáře 
-                                \item \textbf{edited} - výchozí hodnota je false, pokud uživatel svůj komentář změní, je nastavena na true, pro informaci ostatních uživatelů (komentáře reagující na změněný komentář by se po změně mohly zdát nerelevantní) 
-                        \end{propertiesItemize}
-    	            \subsubsection{Collection (kolekce)} Má relaci \uv{CONTAINS} se všemi příspěvky, které jsou v ní uloženy. 
-	                        \subparagraph{Vlastnosti:}  
-                           \begin{propertiesItemize}
-                                \item \textbf{name} - název kolekce
-                                \item \textbf{description} - uživatelem vytvořený popisek 
-                                \item \textbf{isPrivate} - pokud má tato vlastnost hodnotu true, kolekci bude mít možnost vidět pouze uživatel, který ji vytvořil, nebo uživatelé s administrátorským oprávněním, v opačném případě bude přístupná komukoliv
-                        \end{propertiesItemize}
-  
-        \subsection{Analýza a práce s daty}
+
+\subsubsection{Post (příspěvek)}  Může mít relaci \uv{BELONGS\_TO} s entitou \uv{Photo} a relaci \uv{IS\_LOCATED} s entitou \uv{Place}.
+\subparagraph{Vlastnosti:}
+\begin{propertiesItemize}
+	\item \textbf{description} - uživatelem zadaný text příspěvku
+	\item \textbf{historické datum} - datum kdy byla historická fotografie pořízena podle formátu popsaného v \ref{section:historical_date}
+\end{propertiesItemize}
+\subsubsection{Photo (fotografie)} Každý použitý obrázek je uložen jako entita \uv{Photo}.
+\subparagraph{Vlastnosti:}
+\begin{propertiesItemize}
+	\item \textbf{index} - pokud příspěvek obsahuje více obrázků, budou seřazeny vzestupně podle této vlastnosti
+	\item \textbf{blurhash} \ref{subsection:blurhash} - obsahuje vygenerovaný řetězec znaků
+	\item \textbf{hash} obsahuje unikátní identifikátor souboru viz \ref{subsection:IPFS}
+	\item \textbf{width} - šířka obrázku v pixelech, spolu s výškou (\uv{height}) je použita pro lepší vykreslení blurhashe na frontendu
+	\item \textbf{height} - výška obrázku v pixelech
+	\item \textbf{nsfw} - pokud se jedná od NSFW fotografii její hodnota je true; popis vyhodnocování fotografie je popsán v \ref{section:nsfw_filter}
+\end{propertiesItemize}
+\subsubsection{Place (místo)} Každé místo na mapě je uloženo jako entita \uv{Place}. Může mít relaci \uv{HAS\_PREVIEW} s enitou \uv{Photo}, všechny příspěvky s fotografií tohoto místa s ním mají relaci \uv{IS\_LOCATED}.
+\subparagraph{Vlastnosti:}
+\begin{propertiesItemize}
+	\item \textbf{location} - obsahuje souřadnice uložené jako typ point \cite{Neo4jSparialFunctions}
+	\item \textbf{name} - název místa, společně s vlastností \uv{description} může být změněno pouze uživateli s administrátorským oprávněním
+	\item \textbf{description} - popis místa
+	\item \textbf{icon} - významná místa mohou mít vlastní ikonu, která se poté zobrazuje na mapě, tato vlastnost obsahuje IPFS hash souboru s ikonou
+\end{propertiesItemize}
+\subsubsection{Comment (komentář)} Má relaci \uv{BELONGS\_TO} s entitou \uv{Post}.
+\subparagraph{Vlastnosti:}
+\begin{propertiesItemize}
+	\item \textbf{content} - samotný text komentáře
+	\item \textbf{edited} - výchozí hodnota je false, pokud uživatel svůj komentář změní, je nastavena na true, pro informaci ostatních uživatelů (komentáře reagující na změněný komentář by se po změně mohly zdát nerelevantní)
+\end{propertiesItemize}
+\subsubsection{Collection (kolekce)} Má relaci \uv{CONTAINS} se všemi příspěvhky, které jsou v ní uloženy.
+\subparagraph{Vlastnosti:}
+\begin{propertiesItemize}
+	\item \textbf{name} - název kolekce
+	\item \textbf{description} - uživatelem vytvořený popisek
+	\item \textbf{isPrivate} - pokud má tato vlastnost hodnotu true, kolekci bude mít možnost vidět pouze uživatel, který ji vytvořil, nebo uživatelé s administrátorským oprávněním, v opačném případě bude přístupná komukoliv
+\end{propertiesItemize}
+
+%% \subsection{Analýza a práce s daty}
+%% Pro analýzu dat je nutné převést data do formátu sociogramu. Sociogram je grafová reprezentace entit a relací mezi nimi. Sociogramy lze využít k doporučování obsahu přesně podle preferencí uživatele, vyhledání uživatelů s podobnými zájmy, nebo k analýze špatného chování (např. vytváření spamového obsahu).
 
 
-\chapter{Uživatelské vstupy}
-\section{Rozšířené možnosti v textových vstupech}
-Následující možnosti jsou možné ve všech textových vstupech určených pro delší text (např. popis uživatelského účtu (bio), popis příspěvku, nebo komentáře)
-\paragraph{Označit uživatele} je možné zadáním znaku zavináče následovaným uživatelským jménem označeného uživatele. Uživatelské jméno bude poté v textu zvýrazěno modrou barvou, pokud se jedná o uživatelské jméno přihlášeného uživatele, bude označeno žloutou barvou a po kliknutí na něj bude uživatel přesměrován na profil označeného uživatele. Pokud si označený uživatel změní své uživatelské jméno, všechna označení starého uživatelského jména budou nahrazena novým.
-\paragraph{Zvýraznit text} lze buď ztučnením, nebo podtržení. Pokud je část textu ohraničená dvěmi hvězdičkami (např. \uv{**Pardubice** jsou město}) bude vykreslen jako tučný text, pokud bude část textu označena dvěmi podtržítky (př. \uv{Pardubické závodiště (\_\_hipodrom\_\_)}), bude vykreslena kurzívou.
 
-\section{Validace vstupů}
-Všechny textové vstupy zadané uživatelem je nutné validovat (tj. ověřovat jestli neobsahují nechtěné znaky nebo řetězce znaků). Pokud by vstupy nebyly validovány mohl by uživatel např. získat přístup k databázi, nebo přepisovat obsah stránky (pokud by nebyl použit framework, který tuto chybu ošetřuje) vložením škodlivého textu.
-\subsection{GraphQL}
-GraphQL provádí základní validaci vstupu ověřením jeho typu (uživatel na místo čísla nemůže zadat text). 
-\subsection{Validace textových vstupů}
-\paragraph{Uživatelské jméno}\label{paragraph:username} - musí být unikátní, může obsahovat malá a velká písmena bez diakritiky, čísla a podtržítka.
-\paragraph{Popisky příspěvků a komentáře} - mohou obsahovat jakékoliv znaky, jsou omezeny pouze délkou. Všechny speciální znaky jsou escapovány pro zabránění injectu do databáze.
-\subsection{Souřadnice} Při vatváření příspěvku jsou jeho souřadnice validovány podle standardu ISO 6709.
-\subsection{Soubory} Middleware omezuje maximální počet najednou nahrávaných souborů na 5 při maximální velikosti jednoho souboru 20MB.
-\subsection{Historické datum}
-    \begin{itemize}
-        \item \textbf{Validace přesného data} - pokud je uživatelem zadáno přesné datum, je pro ověření jeho správnosti použita funkce JavaScriptu pro rozpoznávání dat.
-        \item \textbf{Validace data s chybějícím dnem nebo měsícem} - pokud je vyplněn pouze den a rok, den bude nastaven jako null z logických důvodů. 
-        \item \textbf{Validace roku} - minimální povolený hodnota je 1400, v případě potřeby ji lze změnit v konfiguračním souboru. Maximální hodnota je vždy aktuální rok.        
-        \item \textbf{Validace měsíce} - měsíc je zadán jako číslo od 1 do 12.
-        \item \textbf{Časové rozmezí} - pokud datum je konce rozmezí starší než datum začátku jsou tyto dvě hodnoty prohozeny. Pokud je datum začátku a konce shodné, jedná se o přesné datum (nejedná se o rozmezí), tento formát je validní.
-    \end{itemize}
+\chapter{Obrázky}
+\section{Zpracování při nahrání}
+\subsection{Filtrování nevhodného obsahu}\label{section:nsfw_filter}
+Pro kontrolu NSFW obsahu bylo použito API třetí strany (NSFW image classification1 Rapid API). Toto API bylo zvoleno z důvodu vysoké kvality vytrénovaného modelu a tudíž velké úspěšnosti rozpoznání nevhodného obsahu a malé míry falešně pozitivních výsledků (false positive). Příspěvky obsahující fotografii klasifikovanou jako NSFW jsou vytvořeny, ale do databáze jsou uloženy s parametrem \uv{nsfw} s hodnotou true. Pokud se takový příspěvek má zobrazit uživateli, nejdříve je zobrazena cenzurovaná verze s varováním, po jehož přijmutí lze zobrazit fotografii bez cenzury.
 
-
-\chapter{Praktická část}
-
-
-\section{Obrázky}
-\subsection{Zpracování při nahrání}
-\subsubsection{Filtrování nevhodného obsahu}\label{section:nsfw_filter}
-Pro kontrolu NSFW obsahu autor použil API třetí strany (nsfw iamge classification1 Rapid API). Toto API bylo zvoleno z důvodu vysoké kvality vytrénovaného modelu a tudíž velké úspěšnosti rozpoznání nevhodného obsahu a malé míry falešně pozitivních výsledků (false positive). Příspěvky obsahující fotografii klasifikovanou jako NSFW jsou vytvořeny, ale jejich viditelnost je nastavena na skrytou, dokud některý z adminů tento příspěvek buď zamítne (poté je smazán), nebo potvrdí (je nastaven jako viditelný, s vlastností NSFW). Pokud se tento příspěvek poté má zobrazit uživateli, nejdřív je zobrazena rozmazaná verze s varováním, po jehož přijmutí lze zobrazit fotografii.
-
-\subsubsection{Nahrání a validace souboru} Maximální velikost nahraného obrázku je 20MB.  Po nahrání je na backendu ověřeno, zda se jedná o obrázek (např. PNG, JPG, GIF), poté je převeden do formátu JPG. Pokud nejdelší strana obrázku přesahuje 2560px, obrázek je zmenšen při zachování poměru stran tak, aby jeho nejdelší strana měla 2560px a následně nahrán na IPFS. Následně je vygenerován blurhash, který je uložen do databze.
-\subsection{Optimalizace}
-\subsubsection{Použití komponentu Next image}
-Next.js poskytuje React komponentu Image, která umožňuje využívat optimalizaci obrázků (tzn. rychlejší načtení na straně klienta). V argumentech komponenty lze nastavit kvalitu obrázku a tím zmenšit datový objem nutný doručit klientovi. Zároveň obrázek není přenášen v plném rozlišení, ale je přizpůsobeno velikosti, ve které je obrázek vykreslen na obrazovce. Optimalizované obrázky jsou cachován na serveru, díky čemuž jsou dále poskytované instantně. \cite{nextImage}
-\subsubsection{Porovnání AVIF a WEBp}
-AVIF je moderní formát obrázků. Poprvé byl použit v roce 2019 Netflixem a od roku 2021 je podporován prohlížeči. Oproti formátu WEBp zpracování obrázku trvá přibližně o 20\% déle, ale poskytuje o 20\% efektivnější kompresi.
+\subsection{Nahrání a validace souboru} Maximální velikost nahraného souboru je 20MB, při omezení maximálního počtu najednou nahraných souborů na 5.  Po nahrání je na backendu ověřeno, zda se jedná o obrázek (např. formáty PNG, JPG, GIF), poté je převeden do formátu JPG. Pokud nejdelší strana obrázku přesahuje 2560px, obrázek je zmenšen při zachování poměru stran tak, aby jeho nejdelší strana měla 2560px a následně nahrán na IPFS. Následně je vygenerován blurhash, který je uložen do databáze.
+\section{Optimalizace}
+\subsection{Použití komponenty Next image}   \label{subsubsection:nextImageComponent}
+Next.js poskytuje React komponentu Image, která umožňuje využívat optimalizaci obrázků (tzn. rychlejší načtení na straně klienta). V argumentech komponenty lze nastavit kvalitu obrázku a tím zmenšit datový objem nutný doručit klientovi. Zároveň obrázek není přenášen v plném rozlišení, ale rozlišení je přizpůsobeno velikosti, ve které je obrázek vykreslen na obrazovce klienta. Optimalizované obrázky jsou cachovány na serveru, díky čemuž jsou následně poskytované instantně. \cite{nextImage}
+\subsection{Porovnání AVIF a WEBp}
+AVIF je moderní formát obrázků. Poprvé byl použit v roce 2019 Netflixem a od roku 2021 je podporován prohlížeči. Oproti formátu WEBp poskytuje přibližně o 20\% efektivnější kompresi za cenu přibližně o 20\% déle trvajícímu zpracování obrázku.
 
 %% BLURHASH
-\subsection{Blurhash}\label{subsection:blurhash}
-Blurhash je formát vyvinut a využíván společností Wolt. Umožňuje vygenerování krátkého řetězce znaků z fotogrfie.
-Řetězec znaků lze následně vykreslit jako rozmazanou verzi fotografie, která je následně vykreslena na místě fotografie před jejím načtením.
-Tento detail zajišťuje lepší uživatelskou zkušenost a pocit rychlejšího načítání fotografií. \cite{blurhash}\cite{blurhashWoltBlog}
+\section{Blurhash}\label{subsection:blurhash}
+Blurhash je formát vyvinut a využíván společností Wolt. Umožňuje vygenerování krátkého řetězce znaků z obrázku. Řetězec znaků lze použít pro vykreslení rozmazané verze fotografie, která je následně vykreslena na místě fotografie před jejím načtením. To zajišťuje lepší uživatelskou zkušenost a pocit rychlejšího načítání obrázků. \cite{blurhash}\cite{blurhashWoltBlog}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/blurhash.png}
-	\caption{Generování a zobrazení blurhashe z původního obrázku}
+	\caption{Generování a zobrazení blurhashe z původního obrázku \cite{blurhashScreenshot}}
 \end{figure}
-	
-\section{Historický datum příspěvku}\label{section:historical_date}
-Každý příspěvek má datum kdy byl vytvořen a historické datum. Historické datum je datum kdy byla fotografie u příspěvku pořízena (z pravidla starší data). U takto starých dat je nutné počítat s tím že se může jedna pouze o odhad, proto není možné použít datum ve formátu podle standartu ISO 8601 jak je zvykem. V autorem navržené struktuře se počítá s tím, že je znám alespoň rok, jako dodatečné informace lze přidat i měsíc, případně den. Zároveň se ale může jednat o určité časové období (například červen až červenec roku 1984), proto jsou vlastnosti rozděleny na počáteční a konečné datum. V případě že se o období nejedná, jsou počáteční a konečné datum stejné. V praxi jde o šest vlastnosí, které má každý příspěvek: startDay, startMonth, startYear, endDay, endMonth, endYear.
 
+\chapter{Struktura projektu}
+\section{Frontend}\label{subsection:fileSystemRouting}
+Next.js poskytuje file-system routing (přesměrování na základě souborového systému), v praxi to znamená, že soubory nacházející se ve složce \uv{pages}, nebo v jejích podsložkách jsou automaticky dostupné na korespondující URL adrese.
+\subsection{Struktura React komponent}\label{subsubsection:reactComponents}
+Struktura React komponent byla inspirována \uv{atomickým designem}. \uv{Atomický design} funguje na bázi rozdělení všech komponent na pět základních kategorií: \uv{atomy}, \uv{molekuly}, \uv{organismy}, \uv{šablony} a \uv{stránky}. Tato struktura zaručuje přehlednost a jednotnost i u rozsáhlých projektů. \cite{reactComponentsAtomicDesign}
+\begin{propertiesItemize}
+	\item \textbf{\uv{atomy}} (atoms) - nejzákladnější stavební prvky stránky (např. tlačítka, textové vstupy a nadpisy); nemohou být rozděleny dále při zachování funkčnosti \cite{reactComponentsAtomicDesign}
+	\item \textbf{\uv{molekuly}} (molecules) - sestávají z několika atomů uspořádaných do jednoduchého UI, tím může být např. textový vstup s tlačítkem potvrdit, které dohromady tvoří vyhledávací formulář \cite{reactComponentsAtomicDesign}
+	\item \textbf{\uv{organismy}} (organisms) - jsou relativně složitější UI komponenty skládající se ze skupin \uv{molekul} a \uv{atomů}, např. vrchní lišta s navigací a vyhledáváním \cite{reactComponentsAtomicDesign}
+	\item \textbf{\uv{šablony}} (templates) - umisťují komponenty (\uv{organismy}, atd.) do rozvržení stránky a určují základní strukturu návrhu \cite{reactComponentsAtomicDesign}
+	\item \textbf{\uv{stránky}} (pages) - naplňují \uv{šablony} reálnými daty; jedná se o soubory uložené v již zmíněné složce \textit{pages} a jejích podsložkách \cite{reactComponentsAtomicDesign}
+\end{propertiesItemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/react_atomic_design.png}
+	\caption{Diagram \uv{atomického designu} \cite{reactComponentsAtomicDesignDiagram}}
+\end{figure}
 
+\subsubsection{Lokalizace}
+Lokalizace je přizpůsobení textů, formátů dat, měny atd. na stránce (nebo v aplikaci) tak aby splňovaly jazykové a kulturní požadavky cílené lokality. V praxi to znamená že v kódu jsou použity pouze klíče (zkratky) jednotlivých slov, slovních spojení, nebo vět, ke kterým je následně podle souboru s překlady přiřazena odpovídající hodnota (text). Může být použit jeden soubor s překlady pro jeden jazyk, nebo být dále rozdělen na několik souborů (např. soubor s chybovými hláškami, s vysvětlivkami a ostatní). V projektu byl vytvořen soubor pro překlad do angličtiny a češtiny. Tyto soubory jsou nacházeny ve složce \textit{translation/languages}. Jazyk zobrazení je vybrán podle jazyku prohlížeče, pokud se jedná o nepřihlášeného uživatele, v opačném případě je nastaven podle uživatelova nastavení. \cite{internationalizationVsLocalization}
+\section{Historické datum příspěvku}\label{section:historical_date}
+Každý příspěvek má datum kdy byl vytvořen a historické datum. Historické datum je datum kdy byla fotografie u příspěvku pořízena (z pravidla starší data). U takto starých dat je nutné počítat s tím že se může jedna pouze o odhad, proto není možné použít datum ve formátu podle standardu ISO 8601 jak je zvykem. V autorem navržené struktuře se počítá s tím, že je znám alespoň rok, jako dodatečné informace lze přidat i měsíc, případně den. Zároveň se ale může jednat o určité časové období (například červen až červenec roku 1984), proto jsou vlastnosti rozděleny na počáteční a konečné datum. V případě že se o období nejedná, jsou počáteční a konečné datum stejné. V praxi jde o šest vlastnosí, které má každý příspěvek: startDay, startMonth, startYear, endDay, endMonth, endYear.
 
 \section{Oprávnění uživatelů}
 Oprávnění uživatelů se dělí na následující čtyři kategorie:
 \paragraph{Nepřihlášení uživatelé} nejsou nijak omezeni v zobrazování obsahu (kromě soukromých kolekcí). Nemají však žádnou možnost přidávání, úpravy ani odebírání obsahu, včetně jeho nahlašování.
-\paragraph{Neověření přihlášení uživatelé bez administrátorských oprávnění} mohou sledovat ostatní uživatele a označovat příspěvky jako oblíbené, nemají možnost přidávat žádný obsah ani nahlašovat příspěvky ostatnách uživatelů. Za ověřeného uživatele je považován uživatel zaregistrovaný s Google účtem, nebo uživatel, který potvrdil vlastnictví zadané emailové adresy skrz ověřovací email. Pokud uživatel nepotvrdí svou emailovou adresu přes potvrzovací email, po třech dnech bude jeho účet smazán.
-\paragraph{Ověření přihlášení uživatelé bez administrátorských oprávnění} mohou zobrazovat veškerý obsah kromě soukromých kolekcí ostatních uživatelů), vytvářet, upravovat a odstraňovat vlasní příspěvky, komentáře a kolekce. Mohou také označovat příspěvky jako oblíbené, přidávat a odebírat příspěvky z vlastních kolekcí a sledovat ostatní uživatele. Mají také přístup k nastavení, ve kterém mohou měnit údaje týkající se jejich účtu jako jsou například uživatelské jméno, křestní jméno, příjmení atd. Pokud se domnívají,že příspěvek cizích uživatele je nevhodný a neměl by se na Histories nacházet, mohou ho nahlásit.
-\paragraph{Přihlášení uživatelé s administrátorským oprávněním} mají všechny možnosti jako standartní uživatelé rozšířené o možnost označit fotografii v příspěvku jakéhokoliv uživatele jako NSFW, měnit název, popisek, umístění a náhled místa a mazání příspěvků a komentářů ostatních uživatelů, pokud usoudí, že se jedná o nevhodný obsah. Administrátorský účet musí vždy být označen jako ověřený.
+\paragraph{Neověření přihlášení uživatelé bez administrátorských oprávnění} mohou sledovat ostatní uživatele a označovat příspěvky jako oblíbené, nemají možnost přidávat žádný obsah ani nahlašovat příspěvky ostatních uživatelů. Za ověřeného uživatele je považován uživatel zaregistrovaný s Google účtem, nebo uživatel, který potvrdil vlastnictví zadané emailové adresy skrz ověřovací email. Pokud uživatel nepotvrdí svou emailovou adresu přes potvrzovací email, po třech dnech bude jeho účet smazán.
+\paragraph{Ověření přihlášení uživatelé bez administrátorských oprávnění} mohou zobrazovat veškerý obsah kromě soukromých kolekcí ostatních uživatelů), vytvářet, upravovat a odstraňovat vlastní příspěvky, komentáře a kolekce. Mohou také označovat příspěvky jako oblíbené, přidávat a odebírat příspěvky z vlastních kolekcí a sledovat ostatní uživatele. Mají také přístup k nastavení, ve kterém mohou měnit údaje týkající se jejich účtu jako jsou například uživatelské jméno, křestní jméno, příjmení atd. Mají také možnost nahlašovat cizí příspěvky, jedná-li se o nevhodný obsah.
+\paragraph{Přihlášení uživatelé s administrátorským oprávněním}\label{paragraph:usersWithAdminPermissions} mají všechny možnosti jako standartní uživatelé rozšířené o možnost označit fotografii v příspěvku jakéhokoliv uživatele jako NSFW, měnit název, popisek, umístění a náhled místa a mazání příspěvků a komentářů ostatních uživatelů, pokud usoudí, že se jedná o nevhodný obsah. Administrátorský účet musí vždy být označen jako ověřený.
 
-\section{Mapa}
-    Pro zobrazení mapy je použit balíček react-map-gl, který umožňuje zobrazování např. markerů (značek), polygonů a 3D terénu. Pro zobrazení konkrétních stylů mapy je použit tiling service. Mapa je rozdělena do virtuální mřížky (jedno pole je jeden tzv. tile), pro každý tile je poté ze serveru poslán obrázek na kterém je konkrétní část mapy (některé tiling services používají místo rastrové grafiky grafiku vektorovou, což například snižuje nároky na síť), server posílá několik tilů zároveň, ty jsou poté cachovány u klienta. Díky tomu není nutné stahovat data pro jednu část mapy vícekrát. V projektu byl jako tiling service použit Mapbox, jedná se o placené řešení s možností použití předvytvořených stylů, nebo vytvořením stylu zcela vlastního. Alternativou je např. Leaflet, který je používá open-source projek Open street maps. Jeho nevýhodou je malé množství stylů mapy bez možnosti vlastní úpravy.
-    \subsection{Zobrazení webové stránky}
-    Náhled stránky s mapou je zobrazen na obrázku \ref{mapPagePreview}. Základní zobrazení je rozděleno na pravou a levou část.
-    \paragraph{Levá část} zobrazuje mapu s ovládacími prvky. V levém horním rohu je textový vstup pro vyhledání místa na mapě podle textu. Levý spodní roh obsahuje posuvník znázorňující časovou osu, který umožňuje omezení zobrazených míst a příspěvků podle historického data fotografií, které obsahují. V pravém spodním rohu jsou tlačítka pro přiblížení a oddálení mapy, přesunutí na aktuální polohu zařázení a menu pro změnu vzhledu mapy. Možné vzhledy mapy jsou světlý, tmavý a satelitní. V pravém horním rohu se nachází tlačítko umožňující skrýt levou část a zobrazit mapu přes celou obrazovku.
-    \paragraph{Pravá část} zobrazuje všechna místa, která se nacházejí v oblasti mapy a která obsahují příspěvky s historickým datem odpovídajícím filtrování podle historického data. Toto zobrazení lze přepnout na zobrazení všech příspěvků, které splňují zmíněná kritéria. Při výběru místa se namísto seznamu míst otevře detail vybraného místa obsahující jeho náhled, název, popisek a seznam příspěvků obsahující fotografie daného místa.
-    \subsection{Lokalizace klienta} Pokud parametry URL adresy neobsahují souřadnice na kterých by měla být mapa zobrazena, stránka si vyžádá přístup ke geolokaci. Pokud je přístup udělen, automaticky je lokace mapy nastavena na souřadnice poskytnuté prohlížečem.
-    \subsection{Ukládání pozice na mapě do parametrů URL adresy}
-    Při každém pohybu po mapě jsou souřadnice aktuální pozice mapy uloženy do paramterů URL adresy. Díky tomu při obnovení stránky pozice mapy zůstává nezměněna. Tato funkcionalita byla inspirována např. Mapy.cz a Google maps. Toto také umožňuje uživateli sdílet aktuální zobrazení mapy zkopírováním URL adresy.
-    \subsection{Načítání míst na mapě}
-    Vzhledem k tomu že množství míst na mapě není teoreticky nijak omezeno, musí být načítána postupně. Pokud by ale byla načítána nová místa při každém pohybu mapa by byla zasekaná a z toho důvodu téměř nepoužitelná (kvůli množství dotazů na API). Tento problém byl vyřešen tím, že dotaz na API je odeslán po dokončení pohybu. Pro zmenšení objemu přenesených dat každý takový požadavek obsahuje seznam míst, která byla již dříve načtena a nacházejí se v zobrazené oblasti, tato místa jsou vynechána z odpovědi serveru.
-    \subsection{Zobrazení míst na mapě}
-    Místo na mapě je zobrazeno jako fotografie v kruhu, nacházející se na souřadnicích daného místa viz. obrázek \ref{figure:onePlaceOnMap}. Pro optimalizaci mapy jsou vykreslovány pouze místa nacházející se v zobrazené oblasti.
-    \subsection{Seskupování bodů}
-    Při oddálení mapy by se v případě většího počtu zobrazených míst mohla daná místa překrývat, snižovat přehlednost mapy a zpomalovat pohyb po mapě. Z toho důvodu je použit tzv. clustering (shlukování více bodů), místo těchto bodů je následně vykreslen pouze jeden, který se nachází na souřadnicích průměru souřadnic všech bodů, které cluster obsahuje viz obrázek \ref{figure:clusterOnMap}. Pro rozhodnutí, který obrázek bude na mapě zvolen jako náhled clusteru jsou porovnány vzdálenosti všech míst, která cluster obsahuje od středu clusteru. jako náhled je použit náhled místa, které je nejblíže středu clusteru. V pravém vrchním rohu náhledu je poté zobrazeno číslo vyjadřující počet míst seskupených v clusteru. Při kliknutí na náhled clusteru je mapa přiblížena tak aby bylo zobrazeno co nejvíce míst jako samostatná místa a ne clustery.
+\section{Stránka domů}
+Pro lepší představu je tato stránka ukázána na obrázku \ref{figure:homePagePreview}. Stránka domů slouží k prohlížení nových příspěvků od uživatelů, které uživatel sleduje. Zároveň obsahuje sekci doporučení uživatelé a zajímavá místa, které uživateli umožňují objevovat nové uživatele a místa. Pokud uživatel není přihlášen, jsou zde zobazeni nejpopulárnější uživatelé a nejoblíbenější příspěvky. Pro nejlepší UX (user experience) je použit infinite scroll (nekonečné rolování), které zajišťuje dostatek obsahu a průběžné načítání dalších příspěvků, které mají být zobrazeny.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=4cm]{images/places_cluster.png}
-	\caption{Zobrazení seskupení několika míst na mapě}\label{figure:clusterOnMap}
+	\includegraphics[width=0.8\textwidth]{images/home_page.png}
+	\caption{Domovská stránka}\label{figure:homePagePreview}
 \end{figure}
-\begin{figure}[h]
+
+\section{Komentáře}
+Komentáře umožňují uživateli reagovat na příspěvky a komentáře ostatních uživatelů, nebo s nimi vést diskuze. Hloubkou komentářového vlákna je označováno maximální možné množství na sebe do sebe zanořených komentářů. V projektu je omezena na jednu úroveň (lze komentovat příspěvky a komentáře příspěvků) kvůli větší přehlednosti a intuitivnějšímu ovládání. Komentáře jsou velice důležité pro vyjadřování názorů a zapojení nových uživatelů do komunity. Zároveň jsou komentáře užitečné např. při vyhodnocování popularity příspěvků, nebo analýze komunity pomocí sociálního grafu.
+\cite{whyAreCommentsImportant}
+
+\section{Stránka s mapou}
+Pro zobrazení mapy je použit balíček \textit{react-map-gl}, který umožňuje zobrazování např. markerů (značek), polygonů a 3D terénu. Pro zobrazení konkrétních stylů mapy je použit tiling service. Mapa je rozdělena do virtuální mřížky (jedno pole je jeden tzv. tile), pro každý tile je poté ze serveru poslán obrázek korespondující s konkrétní částí mapy (některé tiling services používají místo rastrové grafiky grafiku vektorovou, což snižuje nároky na síť), server posílá několik tilů zároveň, ty jsou následně cachovány u klienta. Díky tomu není nutné stahovat data pro jednu část mapy vícekrát. V projektu byl jako tiling service použit Mapbox, jedná se o placené řešení s možností použití již vytvořených stylů, nebo vytvořením stylu zcela vlastního. Alternativou je např. Leaflet, který používá open-source projekt Open street maps. Jeho nevýhodou je malé množství stylů bez možnosti tvorby vlastního.
+\subsection{Zobrazení webové stránky}
+Náhled stránky s mapou je zobrazen na obrázku \ref{figure:mapPagePreview}. Základní zobrazení je rozděleno na pravou a levou část.
+\paragraph{Levá část} zobrazuje mapu s ovládacími prvky. V levém horním rohu je textový vstup pro vyhledání místa na mapě podle textu. Levý spodní roh obsahuje posuvník znázorňující časovou osu, který umožňuje omezení zobrazených míst a příspěvků podle historického data fotografií, které obsahují. V pravém spodním rohu jsou tlačítka pro přiblížení a oddálení mapy, přesunutí na aktuální polohu zařázení a menu pro změnu vzhledu mapy. Možné vzhledy mapy jsou světlý, tmavý a satelitní. V pravém horním rohu se nachází tlačítko umožňující skrýt pravou část a zobrazit mapu přes celou obrazovku.
+\paragraph{Pravá část} zobrazuje náhledy všech míst, která se nacházejí v oblasti mapy a která obsahují příspěvky s historickým datem odpovídajícím filtrování podle historického data. Toto zobrazení lze přepnout na zobrazení všech příspěvků, které splňují zmíněná kritéria. Při výběru místa se namísto seznamu míst otevře detail vybraného místa obsahující jeho náhled, název, popisek a seznam příspěvků obsahující fotografie daného místa.
+\subsection{Lokalizace klienta} Pokud parametry URL adresy neobsahují souřadnice na kterých by měla být mapa zobrazena, stránka si vyžádá přístup ke geolokaci. Pokud je přístup udělen, automaticky je lokace mapy nastavena na souřadnice poskytnuté prohlížečem.
+\subsection{Ukládání pozice na mapě do parametrů URL adresy}
+Při každém pohybu po mapě jsou souřadnice aktuální pozice mapy uloženy do paramterů URL adresy. Díky tomu při obnovení stránky pozice mapy zůstává nezměněna. Tato funkcionalita byla inspirována např. Mapy.cz a Google maps. Toto také umožňuje uživateli sdílet aktuální zobrazení mapy zkopírováním URL adresy.
+\subsection{Načítání míst na mapě}
+Vzhledem k tomu že množství míst na mapě není teoreticky nijak omezeno, musí být načítána postupně. Pokud by ale byla načítána nová místa při každém pohybu mapa by byla zasekaná a z toho důvodu téměř nepoužitelná (kvůli množství dotazů na API). Tento problém byl vyřešen tím, že dotaz na API je odeslán po dokončení pohybu. Pro zmenšení objemu přenesených dat každý takový požadavek obsahuje seznam míst, která byla již dříve načtena a nacházejí se v zobrazené oblasti, tato místa jsou vynechána z odpovědi serveru.
+\subsection{Zobrazení míst na mapě}
+Místo na mapě je zobrazeno jako fotografie v kruhu, nacházející se na souřadnicích daného místa viz obrázek \ref{figure:onePlaceOnMap}. Pro optimalizaci mapy jsou vykreslovány pouze místa nacházející se v zobrazené oblasti.
+\subsection{Seskupování míst na mapě}
+Při oddálení mapy by se v případě většího počtu zobrazených míst mohla daná místa překrývat, snižovat přehlednost mapy a zpomalovat pohyb po mapě. Z toho důvodu je použit tzv. clustering (shlukování více bodů), místo těchto bodů je následně vykreslen pouze jeden, který se nachází na souřadnicích průměru souřadnic všech bodů, které cluster obsahuje viz obrázek \ref{figure:clusterOnMap}. Pro rozhodnutí, který obrázek bude na mapě zvolen jako náhled clusteru jsou porovnány vzdálenosti všech míst, která cluster obsahuje od středu clusteru. jako náhled je použit náhled místa, které je nejblíže středu clusteru. V pravém vrchním rohu náhledu je poté zobrazeno číslo vyjadřující počet míst seskupených v clusteru. Při kliknutí na náhled clusteru je mapa přiblížena tak aby bylo zobrazeno co nejvíce míst jako samostatná místa a ne clustery.
+
+\begin{figure}[!h]
+
 	\centering
 	\includegraphics[width=4cm]{images/place.png}
 	\caption{Zobrazení jednoho místa na mapě}\label{figure:onePlaceOnMap}
+	\includegraphics[width=4cm]{images/places_cluster.png}
+	\caption{Zobrazení seskupení několika míst na mapě}\label{figure:clusterOnMap}
+
 \end{figure}
 
 \begin{figure}[h]
@@ -335,6 +349,30 @@ Oprávnění uživatelů se dělí na následující čtyři kategorie:
 \end{figure}
 
 
+\section{Uživatelské vstupy}
+\subsection{Rozšířené možnosti formátování v textových vstupech}
+Následující možnosti jsou možné ve všech textových vstupech určených pro delší text (např. popis uživatelského účtu (bio), popis příspěvku, nebo komentáře)
+\paragraph{Označit uživatele} je možné zadáním znaku zavináče následovaným uživatelským jménem označeného uživatele. Uživatelské jméno bude poté v textu zvýrazěno modrou barvou, pokud se jedná o uživatelské jméno přihlášeného uživatele, bude označeno žloutou barvou a po kliknutí na něj bude uživatel přesměrován na profil označeného uživatele. Pokud si označený uživatel změní své uživatelské jméno, všechna označení starého uživatelského jména budou nahrazena novým.
+\paragraph{Zvýraznit text} lze buď ztučnením, nebo podtržení. Pokud je část textu ohraničená dvěmi hvězdičkami (např. \uv{**Pardubice** jsou město}) bude vykreslen jako tučný text, pokud bude část textu označena dvěmi podtržítky (př. \uv{Pardubické závodiště (\_\_hipodrom\_\_)}), bude vykreslena kurzívou.
+
+\subsection{Validace vstupů}
+Všechny textové vstupy zadané uživatelem je nutné validovat (tj. ověřovat jestli neobsahují nechtěné znaky nebo řetězce znaků). Pokud by vstupy nebyly validovány mohl by uživatel např. získat přístup k databázi, nebo přepisovat obsah stránky (pokud by nebyl použit framework, který tuto chybu ošetřuje) vložením škodlivého textu.
+\subsubsection{GraphQL}
+GraphQL provádí základní validaci vstupu ověřením jeho typu (uživatel na místo čísla nemůže zadat text).
+\subsubsection{Validace textových vstupů}
+\paragraph{Uživatelské jméno}\label{paragraph:username} - musí být unikátní, může obsahovat malá a velká písmena bez diakritiky, čísla a podtržítka.
+\paragraph{Popisky příspěvků a komentáře} - mohou obsahovat jakékoliv znaky, jsou omezeny pouze délkou. Všechny speciální znaky jsou escapovány pro zabránění injectu do databáze.
+\subsubsection{Souřadnice} Při vatváření příspěvku jsou jeho souřadnice validovány podle standardu ISO 6709.
+\subsubsection{Soubory} Middleware omezuje maximální počet najednou nahrávaných souborů na 5 při maximální velikosti jednoho souboru 20MB.
+\subsubsection{Historické datum}
+\begin{itemize}
+	\item \textbf{Validace přesného data} - pokud je uživatelem zadáno přesné datum, je pro ověření jeho správnosti použita funkce JavaScriptu pro rozpoznávání dat.
+	\item \textbf{Validace data s chybějícím dnem nebo měsícem} - pokud je vyplněn pouze den a rok, den bude nastaven jako null z logických důvodů.
+	\item \textbf{Validace roku} - minimální povolený hodnota je 1400, v případě potřeby ji lze změnit v konfiguračním souboru. Maximální hodnota je vždy aktuální rok.
+	\item \textbf{Validace měsíce} - měsíc je zadán jako číslo od 1 do 12.
+	\item \textbf{Časové rozmezí} - pokud datum je konce rozmezí starší než datum začátku jsou tyto dvě hodnoty prohozeny. Pokud je datum začátku a konce shodné, jedná se o přesné datum (nejedná se o rozmezí), tento formát je validní.
+\end{itemize}
+
 
 \chapter{Vývoj}
 \section{Nasazení na server}
@@ -342,32 +380,30 @@ Oprávnění uživatelů se dělí na následující čtyři kategorie:
 Docker je soubor platforem a služeb poskytujících virtualizaci na úrovni operačního systému pro spouštění softwaru v balíčcích nazývané kontejnery. Docker zajišťuje že programy a aplikace vždy poběží ve stejném prostředí nezávisle na zařízení nebo operačním systému. Jednoduchost spuštění kontejneru usnadňuje nasazení aplikace na server. Celý projekt včetně databáze a úložiště je pak možné spustit jedním skriptem bez nutnosti nastavování.
 \subsection{Hosting}
 Jako hosting je označována služba, na kterou lze nahrát svou webovou aplikaci, která následně bude přístupná na internetu. Pro hostování aplikace byla zvolena platforma DigitalOcean, z důvodu jednoduchosti administrátorského rozhraní (narozdíl od např. AWS) a ceně. Zároveň nabízí funkce jako například automatické naklonování aplikace z Git repozitáře a následné spuštění na serveru při změně kódu. Umožňuje také pronajmutí virtuálního počítače, na kterém lze následně aplikaci spustit například v Docker kontejneru.
-\section{Integrované vývojové prostředí}
-Jako vývojářské prostředí je označován software určená k psaní kódu, zpravidla poskytující také nástroje pro analýzu napsaného kódu jako je například našeptávání, nebo automatické formátování. Při vývoji byl použit Gitpod. Jedná se o cloudovou platformu, která umožňuje pomocí konfiguračního souboru spustit předpřipravené prostředí (včetně databáze a IPFS nodu). Výhodou cloudové platformy je například možnost práce i na zařízeních s velmi nízkým výkonem, nebo synchronizace postupu napříč zařízeními. \cite{gitpod}\cite{whatIsIDE}
 
 \section{Verzování}
 Git je software pro sledování změn v souborech, které jsou součástí repozitáře. Git poskytuje možnost se kdykoliv vrátit do jakékoliv verze projektu. Git lze také použít při kolaboraci více programátorů, nebo pro synchronizaci kódu.
 \section{Testování}
-\subsection{Při vývoji}  
+\subsection{Při vývoji}
 \paragraph{Unit testing} je automatizované testování jednotlivých funkcí kódu zadáním vstupních parametrů a následným porovnání výsledků s očekávanými výsledky.
-\paragraph{Linter} je označení pro skupinu nástrojů, analyzující statický kód bez nutnosti jeho spuštění. Zároveň zajišťuje jednostnost kódu kontrolou pravidel pro formátování. 
+\paragraph{Linter} je označení pro skupinu nástrojů, analyzující statický kód bez nutnosti jeho spuštění. Zároveň zajišťuje jednostnost kódu kontrolou pravidel pro formátování.
 \subsubsection{Nahlašování vzniklých chyb}
 \paragraph{Sentry}
 
 
- 
+
 
 \section{CI/CD}
 \subsection{Aktualizace knihoven}
 \subsection{Kontrola zranitelností}
-\subsection{Github actions} 
+\subsection{Github actions}
 
 
 %% obrázky 
 \listoffigures
 
 %% Citace
-\input{citations.tex} 
+\input{citations.tex}
 
 
 
